@@ -1,0 +1,63 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using Polimedica.ViewModel;
+@model EditarUsuarioViewModel;
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <form asp-action="Editar">
+                <div class="form-floating mb-3 mt-4">
+                    <input asp-for="PrimeiroNome" class="form-control">
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="SobreNome" class="form-control">
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control">
+                </div>
+
+                <div class="form-check">
+                    <input asp-for="Hierarquia" class="form-check-input" type="radio" value="Admin">
+                    <label class="form-check-label" >
+                        Admin
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Hierarquia" class="form-check-input" type="radio" value="Gerente">
+                    <label class="form-check-label">
+                        Gerente
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Hierarquia" class="form-check-input" type="radio" value="Vendedor">
+                    <label class="form-check-label">
+                        Vendedor
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Hierarquia" class="form-check-input" type="radio" value="Cliente_Pf">
+                        <label class="form-check-label">
+                        Cliente Pessoa Fisica
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Hierarquia" class="form-check-input" type="radio" value="Cliente_Pj">
+                    <label class="form-check-label">
+                        Cliente Pessoa Juridica
+                    </label>
+                </div>
+
+                <input type="submit" class="btn btn-success mt-5" value="Atualizar" />
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>

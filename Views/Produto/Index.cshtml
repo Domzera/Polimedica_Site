@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Produto>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<title>@ViewData["Title"] - Lista de Produtos</title>
+<main>
+
+    <section class="py-2 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Categoria ou "Produtos"</h1>
+                <p class="lead text-muted">"Descrição da Categoria"</p>
+                <p>
+                    <!--
+                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                    -->
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-2 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @foreach(var item in Model){
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.NomeProduto</h5>
+                            <p class="card-text">@item.DescricaoProduto</p>
+                            <h2 class="card-title">@item.Preco</h2>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                }
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="https://media.istockphoto.com/id/890573264/pt/foto/daisy-on-a-white-background.jpg?s=2048x2048&w=is&k=20&c=DbNdzVOsAPjn2EXNHsdm0ErE_haubvKe5ukDPwTJPQI=" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Produto</h5>
+                        <p class="card-text">Descrição dos Produtos</p>
+                        <h2 class="card-title">R$ 100,00</h2>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

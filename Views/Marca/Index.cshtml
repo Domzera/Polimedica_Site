@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Marca>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<title>@ViewData["Title"] - Lista de Marcas</title>
+
+<h2>Lista de todas as Marcas</h2>
+<br />
+<br />
+<div class="album py-2 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach (var item in Model)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h2 class="card-title">@item.NomeMarca</h2>
+                        <h5 class="card-title">@item.DescricaoMarca</h5>
+                        <h4 class="card-title">@item.LogoImagem</h4>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

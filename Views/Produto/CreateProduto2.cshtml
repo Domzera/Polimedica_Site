@@ -1,0 +1,74 @@
+﻿@using Polimedica.ViewModel;
+@model CreateProdutoViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<title>@ViewData["Title"] - Cadastro de produto</title>
+
+<form method="post" asp-action="CreateProduto" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="NomeProduto" class="form-label">Produto</label>
+        <input asp-for="NomeProduto" class="form-control" placeholder="Nome do produto">
+        <span asp-validation-for="NomeProduto" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DescricaoProduto" class="form-label">Descrição do produto</label>
+        <input asp-for="DescricaoProduto" class="form-control" placeholder="Descrição do produto">
+        <span asp-validation-for="DescricaoProduto" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="valor01" id="01" value="01">
+        <label class="form-check-label">01</label>
+        <input class="form-check-input" type="checkbox" name="valor02" id="02" value="01">
+        <label class="form-check-label">02</label>
+        <input class="form-check-input" type="checkbox" name="valor03" id="03" value="01">
+        <label class="form-check-label">03</label>
+        <input class="form-check-input" type="checkbox" name="valor04" id="04" value="01">
+        <label class="form-check-label">04</label>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Preco" class="form-label">Preço unitário</label>
+        <input asp-for="Preco" class="form-control" placeholder="Preço" type="text">
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="valorA" id="A" value="A">
+        <label class="form-check-label">-A-</label>
+        <input class="form-check-input" type="checkbox" name="valorA" id="B" value="B">
+        <label class="form-check-label">-B-</label>
+        <input class="form-check-input" type="checkbox" name="valorA" id="C" value="C">
+        <label class="form-check-label">-C-</label>
+        <input class="form-check-input" type="checkbox" name="valorA" id="D" value="D">
+        <label class="form-check-label">-D-</label>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Imagem1" class="form-label">Imagem Principal</label>
+        <input asp-for="Imagem1" type="file" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Imagem2" class="form-label">Imagem2</label>
+        <input asp-for="Imagem2" type="file" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Imagem3" class="form-label">Imagem3</label>
+        <input asp-for="Imagem3" type="file" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Imagem4" class="form-label">Imagem4</label>
+        <input asp-for="Imagem4" type="file" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Imagem5" class="form-label">Imagem5</label>
+        <input asp-for="Imagem5" type="file" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <input asp-for="Ativo" class="form-check-input" type="checkbox">
+        <label asp-for="Ativo" class="form-check-label" for="gridCheck">
+            Ativo
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
