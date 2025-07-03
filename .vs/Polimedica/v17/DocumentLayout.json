@@ -1,28 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\luizc\\desktop\\01sitepoli\\polimedica\\controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\luizc\\desktop\\01sitepoli\\polimedica\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\luizc\\desktop\\01sitepoli\\polimedica\\views\\produto\\createproduto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\produto\\createproduto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\luizc\\desktop\\01sitepoli\\polimedica\\views\\produto\\createproduto2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\produto\\createproduto2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\luizc\\desktop\\01sitepoli\\polimedica\\models\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:models\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,71 +9,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 715,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CreateProduto2.cshtml",
-              "DocumentMoniker": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Views\\Produto\\CreateProduto2.cshtml",
-              "RelativeDocumentMoniker": "Views\\Produto\\CreateProduto2.cshtml",
-              "ToolTip": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Views\\Produto\\CreateProduto2.cshtml",
-              "RelativeToolTip": "Views\\Produto\\CreateProduto2.cshtml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-12T23:42:30.57Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAwwBkAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T18:31:44.824Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Produto.cs",
-              "DocumentMoniker": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Models\\Produto.cs",
-              "RelativeDocumentMoniker": "Models\\Produto.cs",
-              "ToolTip": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Models\\Produto.cs",
-              "RelativeToolTip": "Models\\Produto.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA+wBYAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T18:13:35.339Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProdutoController.cs",
-              "DocumentMoniker": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Controllers\\ProdutoController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProdutoController.cs",
-              "ToolTip": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Controllers\\ProdutoController.cs",
-              "RelativeToolTip": "Controllers\\ProdutoController.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAgwE4AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-27T18:04:33.01Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateProduto.cshtml",
-              "DocumentMoniker": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Views\\Produto\\CreateProduto.cshtml",
-              "RelativeDocumentMoniker": "Views\\Produto\\CreateProduto.cshtml",
-              "ToolTip": "C:\\Users\\luizc\\Desktop\\01SitePoli\\Polimedica\\Views\\Produto\\CreateProduto.cshtml",
-              "RelativeToolTip": "Views\\Produto\\CreateProduto.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAkwBsAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-27T18:01:53.54Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             }
           ]
         }

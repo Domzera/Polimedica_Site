@@ -26,19 +26,30 @@
     <div class="album py-2 bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                @foreach(var item in Model){
+                @foreach(var item in Model ){
                     <div class="card" style="width: 18rem;">
                         <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@item.NomeProduto</h5>
                             <p class="card-text">@item.DescricaoProduto</p>
                             <h2 class="card-title">@item.Preco</h2>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a type="btn btn-success"
+                               asp-controller="Produto"
+                               asp-action="Detalhe"
+                               asp-route-id="@item.Id"
+                               class="btn btn-primary">Detalhes</a>
+                            <!--
+                                <a type="btn btn-success"
+                                asp-controller="Club"
+                                asp-action="Detail"
+                                asp-route-id="@item.Id"
+                                class="btn btn-sm btn-outline-secondary">View</a>
+                            -->
                         </div>
                     </div>
                 }
                 
-                <div class="card" style="width: 18rem;">
+                @* <div class="card" style="width: 18rem;">
                     <img src="https://media.istockphoto.com/id/890573264/pt/foto/daisy-on-a-white-background.jpg?s=2048x2048&w=is&k=20&c=DbNdzVOsAPjn2EXNHsdm0ErE_haubvKe5ukDPwTJPQI=" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Produto</h5>
@@ -46,7 +57,7 @@
                         <h2 class="card-title">R$ 100,00</h2>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
-                </div>
+                </div> *@
             </div>
         </div>
     </div>

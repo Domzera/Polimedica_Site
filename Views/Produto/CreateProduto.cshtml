@@ -20,7 +20,7 @@
         @foreach (var item in ViewBag.marcaVb)
         {
             <div class="form-check" id="checkboxMarca">
-                <input class="form-check-input" type="checkbox" name="SelectedValues" id="@item.Id">
+                <input class="form-check-input" type="checkbox" name="MarcaId" id="@item.Id" value="@item.Id">
                     <label class="form-check-label">
                         @item.NomeMarca - @item.Id
                     </label>
@@ -42,7 +42,7 @@
         @foreach (var item in ViewBag.categoriaVb)
         {
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="Categoria.@item.Id" id="@item.Id">
+                <input class="form-check-input" type="checkbox" name="CategoriaId" id="@item.Id" value="@item.Id">
                 <label class="form-check-label">
                     @item.NomeCategoria - @item.Id
                 </label>

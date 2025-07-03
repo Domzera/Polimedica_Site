@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Polimedica.Models
+﻿namespace Polimedica.Models
 {
     public class Pagamentos
     {
         public int Id { get; set; }
-        [ForeignKey("Pedido")]
         public int PedidoId {  get; set; }
         public Pedido? Pedido { get; set; }
         public DateOnly DataDoPagamento { get; set; }

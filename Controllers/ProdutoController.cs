@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AspNetCoreGeneratedDocument;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.IdentityModel.Tokens;
 using Polimedica.Interface;
 using Polimedica.Models;
@@ -22,11 +26,23 @@ namespace Polimedica.Controllers
             _categoriaRepository = categoriaRepository;
             _marcaRepository = marcaRepository;
         }
+
+        // Começa aqui
         public async Task<IActionResult> IndexAsync()
         {
             IEnumerable<Produto> produtos = await _produtoRepository.GetAll();
             return View(produtos);
         }
+        public async Task<IActionResult> Detalhe(int id)
+        {
+            if (id != 0)
+            {
+                Produto produto = await _produtoRepository.GetByIdAsync(id);
+                return View(produto);
+            }
+            return NotFound();
+        }
+
         [Authorize]
         public async Task<IActionResult> CreateProdutoAsync()
         {
@@ -48,7 +64,7 @@ namespace Polimedica.Controllers
                 {
                     categoriaL.Add(item);
                 }
-                ViewBag.categoriaVb = categoriaL;  
+                ViewBag.categoriaVb = categoriaL;
             }
             return View(new CreateProdutoViewModel());
         }
@@ -71,28 +87,55 @@ namespace Polimedica.Controllers
                     Imagem4 = produtoVM.Imagem4,
                     Imagem5 = produtoVM.Imagem5,
                     Ativo = produtoVM.Ativo,
-
-                    //MarcaId = 1,
-                    //CategoriaId = 1
+                    //MarcaId = produtoVM.MarcaId,
+                    //CategoriaId = produtoVM.CategoriaId,
+                    DataAdicionado = DateOnly.FromDateTime(DateTime.Now),
                 };
-                
+
+                int i=0;
+                while (i < produtoVM.MarcaId.Length)
+                {
+                    
+                    if (produtoVM.MarcaId[i].ToString() != "" && produtoVM.MarcaId[i] != null)
+                    {
+                        var marcaId = new MarcaProduto
+                        {
+                            MarcaId = produtoVM.MarcaId[i],
+                            ProdutoId = produto.Id
+                        };
+                        i++;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("MarcaId", "Marca não pode ser nulo ou zero.");
+                        return View(produtoVM); // Retorna a view com o erro
+                    }
+                }
+
+                int y = 0;
+                while (y < produtoVM.CategoriaId.Length)
+                {
+
+                    if (produtoVM.CategoriaId[y].ToString() != "" && produtoVM.CategoriaId[y] != null)
+                    {
+                        var categoriaId = new CategoriaProduto
+                        {
+                            CategoriaId = produtoVM.CategoriaId[y],
+                            ProdutoId = produto.Id
+                        };
+                        y++;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CategoriaId", "Categoria não pode ser nulo ou zero.");
+                        return View(produtoVM); // Retorna a view com o erro
+                    }
+                }
+
+
                 _produtoRepository.Add(produto);
-                
-                //foreach (var marcaId in produtoVM.Marca)
-                //{
-                //    var prodMar = new ProductMarca
-                //    {
-                //        //MarcaId = int.Parse(produtoVM.Marca)
-                //    };
-                //}
-                //foreach (var categoriaId in produtoVM.Categoria)
-                //{
-                //    var prodCat = new ProductCategoria
-                //    {
-                //        //MarcaId = int.Parse(produtoVM.Marca)
-                //    };
-                //}
-                return View("Index");
+
+                return View();
             }
             else
             {

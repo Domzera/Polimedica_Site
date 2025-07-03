@@ -175,13 +175,9 @@ namespace Polimedica.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UsuarioId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("AvaliacaoDb");
                 });
@@ -204,13 +200,9 @@ namespace Polimedica.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UsuarioId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("CarrinhoDeComprasDb");
                 });
@@ -232,6 +224,17 @@ namespace Polimedica.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CategoriaDb");
+                });
+
+            modelBuilder.Entity("Polimedica.Models.CategoriaProduto", b =>
+                {
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.ToTable("CategoriaProdutoDb");
                 });
 
             modelBuilder.Entity("Polimedica.Models.CuponDesconto", b =>
@@ -344,6 +347,17 @@ namespace Polimedica.Migrations
                     b.ToTable("MarcaDb");
                 });
 
+            modelBuilder.Entity("Polimedica.Models.MarcaProduto", b =>
+                {
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.ToTable("MarcaProdutoDb");
+                });
+
             modelBuilder.Entity("Polimedica.Models.Pagamentos", b =>
                 {
                     b.Property<int>("Id")
@@ -417,17 +431,14 @@ namespace Polimedica.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ativo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<DateOnly>("DataAdicionado")
                         .HasColumnType("date");
 
                     b.Property<string>("DescricaoProduto")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagem1")
@@ -445,10 +456,8 @@ namespace Polimedica.Migrations
                     b.Property<string>("Imagem5")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomeProduto")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("Preco")
@@ -458,10 +467,6 @@ namespace Polimedica.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("MarcaId");
 
                     b.ToTable("ProdutoDb");
                 });
@@ -596,38 +601,6 @@ namespace Polimedica.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Polimedica.Models.Avaliacao", b =>
-                {
-                    b.HasOne("Polimedica.Models.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId");
-
-                    b.HasOne("Polimedica.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Polimedica.Models.CarrinhoDeCompras", b =>
-                {
-                    b.HasOne("Polimedica.Models.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Polimedica.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("Polimedica.Models.ItensDoPedido", b =>
                 {
                     b.HasOne("Polimedica.Models.Pedido", "Pedido")
@@ -673,25 +646,6 @@ namespace Polimedica.Migrations
                     b.Navigation("EnderecoDeEntrega");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Polimedica.Models.Produto", b =>
-                {
-                    b.HasOne("Polimedica.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Polimedica.Models.Marca", "Marca")
-                        .WithMany()
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Categoria");
-
-                    b.Navigation("Marca");
                 });
 
             modelBuilder.Entity("Polimedica.Models.Usuario", b =>

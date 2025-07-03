@@ -15,7 +15,8 @@ namespace Polimedica.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("index", "Produto");
+            //return View();
         }
 
         public IActionResult Privacy()

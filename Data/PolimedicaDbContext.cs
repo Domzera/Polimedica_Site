@@ -11,10 +11,12 @@ namespace Polimedica.Data
         public DbSet<Avaliacao> AvaliacaoDb {  get; set; }
         public DbSet<CarrinhoDeCompras> CarrinhoDeComprasDb { get; set; }
         public DbSet<Categoria> CategoriaDb { get; set; }
+        public DbSet<CategoriaProduto> CategoriaProdutoDb { get; set; }
         public DbSet<CuponDesconto> CuponDescontoDb {  get; set; }
         public DbSet<Endereco> EnderecoDb { get; set; }
         public DbSet<ItensDoPedido> ItensDoPedidoDb {  get; set; }
         public DbSet<Marca>MarcaDb { get; set; }
+        public DbSet<MarcaProduto> MarcaProdutoDb { get; set; }
         public DbSet<Pagamentos> PagamentosDb {  get; set; }
         public DbSet<Pedido> PedidoDb { get; set; }
         public DbSet<Produto> ProdutoDb { get; set; }
