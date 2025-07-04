@@ -46,12 +46,12 @@
                 <div class="text-end">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a type="button" class="btn btn-outline-light" asp-controller="Usuario" asp-action="Logout">Logout</a>
+                        <a type="button" class="btn btn-outline-light" asp-controller="Usuario" asp-action="Logout">Sair</a>
                     }
                     else
                     {
-                        <a type="button" class="btn btn-outline-light m-2" asp-controller="Usuario" asp-action="Login">Login</a>
-                        <a type="button" class="btn btn-outline-light" asp-controller="Usuario" asp-action="RegistroUsuario">Sign-up</a>
+                        <a type="button" class="btn btn-outline-light m-2" asp-controller="Usuario" asp-action="Login">Entrar</a>
+                        <a type="button" class="btn btn-outline-light" asp-controller="Usuario" asp-action="RegistroUsuario">Cadastrar-se</a>
                     }
                 </div>
             </div>
@@ -109,7 +109,7 @@
                     <p>As entregas são feitas de Segunda á Sexta, no periodo da manhã e da tarde.</p>
                     <p>
                         Nosso motorista sai as 9:30h para fazer as entregas da manhã e
-                        16:00h para fazer as da tarde, com eventuais entregas ao fim da tarde.
+                        14:00h para fazer as da tarde, com eventuais entregas ao fim da tarde.
                     </p>
                     <p>As Terça, de manhã, nós entregamos em *** e as Quintas de manhã em ***</p>
                     <p>polimedicadovale@contato.com.br</p>
@@ -127,21 +127,43 @@
                     <ul class="navbar-nav m-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="Index">Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Usuario" asp-action="Dashboard">Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Produto" asp-action="CreateProduto">Cria Produtos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Marca" asp-action="CreateMarca">Cria Marca</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Categoria" asp-action="CreateCategoria">Cria Categorias</a>
-                            </li>
+                            if (User.IsInRole("Gerente") || User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Produtos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Usuario" asp-action="Dashboard">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Produto" asp-action="CreateProduto">Cria Produtos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Marca" asp-action="CreateMarca">Cria Marca</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Categoria" asp-action="CreateCategoria">Cria Categorias</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Vendedor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Produtos</a>
+                                </li>
+                                <!--<li class="nav-item">
+                                    <a class="nav-link" asp-controller="Usuario" asp-action="Dashboard">Dashboard</a>
+                                </li>-->
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Produto" asp-action="CreateProduto">Cria Produtos</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Cliente_Pf") || User.IsInRole("Cliente_Pj"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Produtos</a>
+                                </li>
+                            }
+
                         }
                         else
                         {

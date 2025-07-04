@@ -59,13 +59,13 @@ namespace Polimedica.Controllers
                                 return RedirectToAction("Dashboard", "Usuario");
                                 //break;
                             case "Vendedor":
-                                return RedirectToAction("Vendedor", "Index");
+                                return RedirectToAction("Index", "Vendedor");
                                 //break;
                             case "Cliente_Pj":
-                                return RedirectToAction("Cliente", "Index");
+                                return RedirectToAction("Index", "Cliente");
                                 //break;
                             case "Cliente_Pf":
-                                return RedirectToAction("Cliente", "Index");
+                                return RedirectToAction("Index", "Cliente");
                                 //break;
                         }
                     }
@@ -103,13 +103,21 @@ namespace Polimedica.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (!await _roleManager.RoleExistsAsync("Cliente_Pf"))
+                    if(!await _roleManager.RoleExistsAsync("Gerente"))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Gerente"));
+                        await _userManager.AddToRoleAsync(newUser, UserRoles.Gerente);
+                        await _signInManager.SignInAsync(newUser, isPersistent: true);
+                        return RedirectToAction("Dashboard", "Usuario");
+                    }
+                    else
                     {
                         await _roleManager.CreateAsync(new IdentityRole("Cliente_Pf"));
+                        await _userManager.AddToRoleAsync(newUser, UserRoles.ClientePf);
+                        await _signInManager.SignInAsync(newUser, isPersistent: true);
+                        return RedirectToAction("Index", "Cliente");
                     }
-                    await _userManager.AddToRoleAsync(newUser, UserRoles.ClientePf);
-                }
-                return RedirectToAction("Index", "Cliente");
+                }   
             }
             return View(userRegister);
 

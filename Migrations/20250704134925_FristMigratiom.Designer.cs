@@ -12,8 +12,8 @@ using Polimedica.Data;
 namespace Polimedica.Migrations
 {
     [DbContext(typeof(PolimedicaDbContext))]
-    [Migration("20250703151654_MigrationComplete")]
-    partial class MigrationComplete
+    [Migration("20250704134925_FristMigratiom")]
+    partial class FristMigratiom
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -463,8 +463,8 @@ namespace Polimedica.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Preco")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantidadeEmEstoque")
                         .HasColumnType("int");

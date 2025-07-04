@@ -8,7 +8,6 @@ namespace Polimedica.Repository
     public class ProdutoRepository : IProdutoRepository
     {
         private readonly PolimedicaDbContext _context;
-
         public ProdutoRepository(PolimedicaDbContext context)
         {
             _context = context;
@@ -28,7 +27,6 @@ namespace Polimedica.Repository
         public async Task<IEnumerable<Produto>> GetAll()
         {
             return await _context.ProdutoDb.ToListAsync();
-
         }
 
         public async Task<IEnumerable<Produto>> GetAllAtivo(char ativo)
@@ -55,7 +53,7 @@ namespace Polimedica.Repository
             return (IEnumerable<Produto>)await _context.ProdutoDb.FindAsync(categoria);
         }
 
-        public async Task<Produto> GetByIdAsync(int id)
+        public async Task<Produto> GetById(int id)
         {
             return await _context.ProdutoDb.FirstOrDefaultAsync(i => i.Id == id);
         }

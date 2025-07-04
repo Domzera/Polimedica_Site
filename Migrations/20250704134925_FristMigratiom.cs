@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Polimedica.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationComplete : Migration
+    public partial class FristMigratiom : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -151,7 +151,7 @@ namespace Polimedica.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeProduto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescricaoProduto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preco = table.Column<long>(type: "bigint", nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     QuantidadeEmEstoque = table.Column<int>(type: "int", nullable: false),
                     Imagem1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Imagem2 = table.Column<string>(type: "nvarchar(max)", nullable: true),

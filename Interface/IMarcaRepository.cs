@@ -6,6 +6,7 @@ namespace Polimedica.Interface
     {
         bool Add(Marca marca);
         bool Update(Marca marca);
+        bool Delete(Marca marca);
         bool Save();
         Task<Marca> GetById(int id);
         Task<IEnumerable<Marca>> GetAllAsync();

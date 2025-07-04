@@ -1,9 +1,5 @@
-﻿using AspNetCoreGeneratedDocument;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.IdentityModel.Tokens;
 using Polimedica.Interface;
 using Polimedica.Models;
@@ -16,15 +12,18 @@ namespace Polimedica.Controllers
         private readonly IProdutoRepository _produtoRepository;
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IMarcaRepository _marcaRepository;
+        private readonly IMarcaProdutoRepository _marcaProdutoRepository;
 
         public ProdutoController(
             IProdutoRepository produtoRepository,
             ICategoriaRepository categoriaRepository,
-            IMarcaRepository marcaRepository)
+            IMarcaRepository marcaRepository,
+            IMarcaProdutoRepository marcaProdutoRepository)
         {
             _produtoRepository = produtoRepository;
             _categoriaRepository = categoriaRepository;
             _marcaRepository = marcaRepository;
+            _marcaProdutoRepository = marcaProdutoRepository;
         }
 
         // Começa aqui
@@ -37,8 +36,8 @@ namespace Polimedica.Controllers
         {
             if (id != 0)
             {
-                Produto produto = await _produtoRepository.GetByIdAsync(id);
-                return View(produto);
+                Produto produto = await _produtoRepository.GetById(id);
+                return View(new ProdutoDetalheViewModel());
             }
             return NotFound();
         }
@@ -91,6 +90,7 @@ namespace Polimedica.Controllers
                     //CategoriaId = produtoVM.CategoriaId,
                     DataAdicionado = DateOnly.FromDateTime(DateTime.Now),
                 };
+                _produtoRepository.Add(produto);
 
                 int i=0;
                 while (i < produtoVM.MarcaId.Length)
@@ -103,6 +103,8 @@ namespace Polimedica.Controllers
                             MarcaId = produtoVM.MarcaId[i],
                             ProdutoId = produto.Id
                         };
+
+                        _marcaProdutoRepository.Add(marcaId);
                         i++;
                     }
                     else
@@ -132,10 +134,7 @@ namespace Polimedica.Controllers
                     }
                 }
 
-
-                _produtoRepository.Add(produto);
-
-                return View();
+                return RedirectToAction("Index", "Produto"); //View();
             }
             else
             {

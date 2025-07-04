@@ -12,7 +12,7 @@ namespace Polimedica.Interface
         Task<IEnumerable<Produto>> GetAllAtivo(char ativo);
         Task<IEnumerable<Produto>> GetAllProdutoPorMarca(int marcaId);
         Task<IEnumerable<Produto>> GetAllProdutoPorCategoria(int categoriaId);
-        Task<Produto> GetByIdAsync(int id);
+        Task<Produto> GetById(int id);
         Task<Produto> GetByNomeAsync(string nome);
     }
 }

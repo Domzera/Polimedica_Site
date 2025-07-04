@@ -460,8 +460,8 @@ namespace Polimedica.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Preco")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantidadeEmEstoque")
                         .HasColumnType("int");

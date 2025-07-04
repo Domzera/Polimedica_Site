@@ -1,11 +1,14 @@
-﻿namespace Polimedica.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Polimedica.Models
 {
     public class Produto
     {
         public int Id { get; set; }
         public string NomeProduto { get; set; }
         public string DescricaoProduto {  get; set; }
-        public long Preco {  get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public Decimal Preco {  get; set; }
         public int QuantidadeEmEstoque {  get; set; }
         public string? Imagem1 {  get; set; }
         public string? Imagem2 { get; set; }
