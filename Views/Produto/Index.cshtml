@@ -28,7 +28,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 @foreach(var item in Model ){
                     <div class="card m-3" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
+                        <img src="@item.Imagem1" width="30" height="250" class="card-img-top" alt="Foto de apresentação">
                         <div class="card-body">
                             <h5 class="card-title">@item.NomeProduto</h5>
                             <p class="card-text">@item.DescricaoProduto</p>
@@ -44,16 +44,6 @@
                         </div>
                     </div>
                 }
-                
-                @* <div class="card" style="width: 18rem;">
-                    <img src="https://media.istockphoto.com/id/890573264/pt/foto/daisy-on-a-white-background.jpg?s=2048x2048&w=is&k=20&c=DbNdzVOsAPjn2EXNHsdm0ErE_haubvKe5ukDPwTJPQI=" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Produto</h5>
-                        <p class="card-text">Descrição dos Produtos</p>
-                        <h2 class="card-title">R$ 100,00</h2>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div> *@
             </div>
         </div>
     </div>

@@ -9,8 +9,8 @@ namespace Polimedica.Interface
         bool UpdateByProdutoId(CategoriaProduto categoriaProduto);
         bool DeleteByCategoriaId(CategoriaProduto categoriaProduto);
         bool DeleteByProdutoId(CategoriaProduto categoriaProduto);
-        Task<IEnumerable<CategoriaProduto>> GetByCategoriaId(CategoriaProduto categoriaProduto);
-        Task<IEnumerable<CategoriaProduto>> GetByProdutoId(CategoriaProduto categoriaProduto);
+        Task<IEnumerable<CategoriaProduto>> GetByCategoriaId(int id);
+        Task<IEnumerable<CategoriaProduto>> GetByProdutoId(int id);
         bool Save();
     }
 }

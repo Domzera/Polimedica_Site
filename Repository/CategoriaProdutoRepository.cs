@@ -40,16 +40,16 @@ namespace Polimedica.Repository
             _context.Database.ExecuteSqlRawAsync("DELETE FROM CategoriaProdutoDb WHERE ProdutoId = {0}", categoriaProduto.ProdutoId);
             return Save();
         }
-        public async Task<IEnumerable<CategoriaProduto>> GetByCategoriaId(CategoriaProduto categoriaProduto)
+        public async Task<IEnumerable<CategoriaProduto>> GetByCategoriaId(int id)
         {
             return (IEnumerable<CategoriaProduto>)_context.CategoriaProdutoDb
-                .FromSqlRaw("SELECT CategoriaId, ProdutoId FROM CategoriaProdutoDb WHERE CategoriaId > {0}", categoriaProduto.CategoriaId)
+                .FromSqlRaw("SELECT * FROM CategoriaProdutoDb WHERE CategoriaId = {0}", id)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<CategoriaProduto>> GetByProdutoId(CategoriaProduto categoriaProduto)
+        public async Task<IEnumerable<CategoriaProduto>> GetByProdutoId(int id)
         {
             return (IEnumerable<CategoriaProduto>)_context.CategoriaProdutoDb
-                .FromSqlRaw("SELECT CategoriaId, ProdutoId FROM CategoriaProdutoDb WHERE ProdutoId > {0}", categoriaProduto.ProdutoId)
+                .FromSqlRaw("SELECT * FROM CategoriaProdutoDb WHERE ProdutoId = {0}", id)
                 .ToListAsync();
         }
         public bool Save()

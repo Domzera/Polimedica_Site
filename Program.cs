@@ -5,6 +5,7 @@ using Polimedica.Data;
 using Polimedica.Interface;
 using Polimedica.Models;
 using Polimedica.Repository;
+using Polimedica.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<IMarcaProdutoRepository, MarcaProdutoRepository>();
+builder.Services.AddScoped<ICategoriaProdutoRepository, CategoriaProdutoRepository>();
+builder.Services.AddScoped<IPhotoService, PhotoServie>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings")); 
 builder.Services.AddDbContext<PolimedicaDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

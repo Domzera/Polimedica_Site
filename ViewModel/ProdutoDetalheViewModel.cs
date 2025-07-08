@@ -2,6 +2,7 @@
 {
     public class ProdutoDetalheViewModel
     {
+        public int Id { get; set; }
         public string NomeProduto { get; set; }
         public string DescricaoProduto { get; set; }
         public int MarcaId { get; set; }

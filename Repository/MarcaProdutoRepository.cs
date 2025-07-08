@@ -30,16 +30,16 @@ namespace Polimedica.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<MarcaProduto>> getByMarcaId(MarcaProduto marcaProduto)
+        public async Task<IEnumerable<MarcaProduto>> getByMarcaId(int id)
         {
             return (IEnumerable<MarcaProduto>)_context.MarcaProdutoDb
-                .FromSqlRaw("SELECT MarcaId, ProdutoId FROM MarcaProdutoDb WHERE MarcaId > {0}", marcaProduto.MarcaId)
+                .FromSqlRaw("SELECT * FROM MarcaProdutoDb WHERE MarcaId = {0}", id)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MarcaProduto>> getByProdutoId(MarcaProduto marcaProduto)
+        public async Task<IEnumerable<MarcaProduto>> getByProdutoId(int id)
         {
             return (IEnumerable<MarcaProduto>)_context.MarcaProdutoDb
-                .FromSqlRaw("SELECT MarcaId, ProdutoId FROM MarcaProdutoDb WHERE ProdutoId > {0}", marcaProduto.ProdutoId)
+                .FromSqlRaw("SELECT * FROM MarcaProdutoDb WHERE ProdutoId = {0}", id)
                 .ToListAsync();
         }
 

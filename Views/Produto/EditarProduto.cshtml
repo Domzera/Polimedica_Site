@@ -1,9 +1,8 @@
 ﻿@using Polimedica.ViewModel;
-@model CreateProdutoViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-<title>@ViewData["Title"] - Cadastro de produto</title>
+@model EditProdutoViewModel
+
+
+<title>@ViewData["Title"] - Edição de produto</title>
 
 <form method="post" asp-action="CreateProduto" enctype="multipart/form-data">
     <div class="form-group">
@@ -16,14 +15,15 @@
         <input asp-for="DescricaoProduto" class="form-control" placeholder="Descrição do produto">
         <span asp-validation-for="DescricaoProduto" class="text-danger"></span>
     </div>
-    @if (ViewBag.marcaVb != null){
+    @if (ViewBag.marcaVb != null)
+    {
         @foreach (var item in ViewBag.marcaVb)
         {
             <div class="form-check" id="checkboxMarca">
                 <input class="form-check-input" type="checkbox" name="MarcaId" id="@item.Id" value="@item.Id">
-                    <label class="form-check-label">
-                        @item.NomeMarca - @item.Id
-                    </label>
+                <label class="form-check-label">
+                    @item.NomeMarca - @item.Id
+                </label>
             </div>
         }
         <a class="nav-link btn btn-outline-info btn-lg" asp-controller="Marca" asp-action="CreateMarca">Criar nova marca</a>
@@ -38,7 +38,8 @@
         <label asp-for="Preco" class="form-label">Preço unitário</label>
         <input asp-for="Preco" class="form-control" placeholder="Preço" type="text">
     </div>
-    @if(ViewBag.categoriaVb != null){
+    @if (ViewBag.categoriaVb != null)
+    {
         @foreach (var item in ViewBag.categoriaVb)
         {
             <div class="form-check">
@@ -49,7 +50,9 @@
             </div>
         }
         <a class="nav-link btn btn-outline-info btn-lg" asp-controller="Categoria" asp-action="CreateCategoria">Criar nova categoria</a>
-    }else{
+    }
+    else
+    {
         <div>
             <a class="nav-link btn btn-outline-success btn-lg" asp-controller="Categoria" asp-action="CreateCategoria">Criar Categoria</a>
         </div>
