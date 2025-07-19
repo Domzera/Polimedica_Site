@@ -2,16 +2,22 @@
 {
     public class EditProdutoViewModel
     {
-        public string NomeProduto { get; set; }
-        public string DescricaoProduto { get; set; }
-        public int[] MarcaId { get; set; }
-        public float Preco { get; set; }
-        public int[] CategoriaId { get; set; }
-        public IFormFile Imagem1 { get; set; }
-        public IFormFile Imagem2 { get; set; }
-        public IFormFile Imagem3 { get; set; }
-        public IFormFile Imagem4 { get; set; }
-        public IFormFile Imagem5 { get; set; }
+        public int? ProdutiId { get; set; }
+        public string? NomeProduto { get; set; }
+        public string? DescricaoProduto { get; set; }
+        public int[]? MarcaId { get; set; }
+        public Decimal? Preco { get; set; }
+        public int[]? CategoriaId { get; set; }
+        public IFormFile? IImagem1 { get; set; }
+        public string? Imagem1 { get; set; }
+        public IFormFile? IImagem2 { get; set; }
+        public string? Imagem2 { get; set; }
+        public IFormFile? IImagem3 { get; set; }
+        public string? Imagem3 { get; set; }
+        public IFormFile? IImagem4 { get; set; }
+        public string? Imagem4 { get; set; }
+        public IFormFile? IImagem5 { get; set; }
+        public string? Imagem5 { get; set; }
         public Boolean Ativo { get; set; }
     }
 }

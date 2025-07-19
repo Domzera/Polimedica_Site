@@ -12,16 +12,16 @@ namespace Polimedica.Repository
         {
             _context = context;
         }
-        public bool Add(Produto produto)
+        public Task<bool> Add(Produto produto)
         {
             _context.Add(produto);
-            return Save();
+            return SaveAsync();
         }
 
-        public bool Delete(Produto produto)
+        public Task<bool> Delete(Produto produto)
         {
             _context.Remove(produto);
-            return Save();
+            return SaveAsync();
         }
 
         public async Task<IEnumerable<Produto>> GetAll()
@@ -58,15 +58,15 @@ namespace Polimedica.Repository
             return await _context.ProdutoDb.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public bool Save()
+        public async Task<bool> Update(Produto produto)
         {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+            _context.Update(produto);
+            return await SaveAsync();
         }
 
-        public bool Update(Produto produto)
+        private async Task<bool> SaveAsync()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

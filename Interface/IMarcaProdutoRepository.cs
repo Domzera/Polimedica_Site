@@ -4,13 +4,12 @@ namespace Polimedica.Interface
 {
     public interface IMarcaProdutoRepository
     {
-        bool Add(MarcaProduto marcaProduto);
-        bool UpdateByMarcaId(MarcaProduto marcaProduto);
-        bool UpdateByProdutoId(MarcaProduto marcaProduto);
-        bool DeleteByMarcaId(MarcaProduto marcaProduto);
-        bool DeleteByProdutoId(MarcaProduto marcaProduto);
+        Task<bool> Add(MarcaProduto marcaProduto);
+        Task<bool> UpdateByMarcaId(MarcaProduto marcaProduto);
+        Task<bool> UpdateByProdutoId(MarcaProduto marcaProduto);
+        Task<bool> DeleteByMarcaId(int id);
+        Task<bool> DeleteByProdutoId(int id);
         Task<IEnumerable<MarcaProduto>> getByMarcaId(int id);
         Task<IEnumerable<MarcaProduto>> getByProdutoId(int id);
-        bool Save();
     }
 }

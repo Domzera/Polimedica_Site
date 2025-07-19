@@ -12,54 +12,53 @@ namespace Polimedica.Repository
         {
             _context = context;
         }
-        public bool Add(MarcaProduto marcaProduto)
+        public async Task<bool> Add(MarcaProduto marcaProduto)
         {
-            _context.Database.ExecuteSqlRawAsync("INSERT INTO MarcaProdutoDb (MarcaId, ProdutoId) VALUES ({0}, {1})",
+             await _context.Database.ExecuteSqlRawAsync("INSERT INTO MarcaProdutoDb (MarcaId, ProdutoId) VALUES ({0}, {1})",
                 marcaProduto.MarcaId, marcaProduto.ProdutoId);
-            return Save();
+            return await SaveAsync();
         }
 
-        public bool DeleteByMarcaId(MarcaProduto marcaProduto)
+        public async Task<bool> DeleteByMarcaId(int id)
         {
-            _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE MarcaId = {0}", marcaProduto.MarcaId);
-            return Save();
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE MarcaId = {0}", id);
+            return await SaveAsync();
         }
-        public bool DeleteByProdutoId(MarcaProduto marcaProduto)
+        public async Task<bool> DeleteByProdutoId(int id)
         {
-            _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE ProdutoId = {0}", marcaProduto.ProdutoId);
-            return Save();
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE ProdutoId = {0}", id);
+            return await SaveAsync();
         }
 
         public async Task<IEnumerable<MarcaProduto>> getByMarcaId(int id)
         {
-            return (IEnumerable<MarcaProduto>)_context.MarcaProdutoDb
+            return await _context.MarcaProdutoDb
                 .FromSqlRaw("SELECT * FROM MarcaProdutoDb WHERE MarcaId = {0}", id)
                 .ToListAsync();
         }
         public async Task<IEnumerable<MarcaProduto>> getByProdutoId(int id)
         {
-            return (IEnumerable<MarcaProduto>)_context.MarcaProdutoDb
+            return await _context.MarcaProdutoDb
                 .FromSqlRaw("SELECT * FROM MarcaProdutoDb WHERE ProdutoId = {0}", id)
                 .ToListAsync();
         }
 
-        public bool Save()
+        private async Task<bool> SaveAsync()
         {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public bool UpdateByMarcaId(MarcaProduto marcaProduto)
+        public async Task<bool> UpdateByMarcaId(MarcaProduto marcaProduto)
         {
-             _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET ProdutoId = {0} WHERE MarcaId = {1}",
+             await _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET ProdutoId = {0} WHERE MarcaId = {1}",
                 marcaProduto.ProdutoId, marcaProduto.MarcaId);
-            return Save();
+            return await SaveAsync();
         }
-        public bool UpdateByProdutoId(MarcaProduto marcaProduto)
+        public async Task<bool> UpdateByProdutoId(MarcaProduto marcaProduto)
         {
-            _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET MarcaId = {0} WHERE ProdutoId = {1}",
+            await _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET MarcaId = {0} WHERE ProdutoId = {1}",
                marcaProduto.MarcaId, marcaProduto.ProdutoId);
-            return Save();
+            return await SaveAsync();
         }
     }
 }

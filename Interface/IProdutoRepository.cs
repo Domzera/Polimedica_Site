@@ -4,10 +4,10 @@ namespace Polimedica.Interface
 {
     public interface IProdutoRepository
     {
-        bool Add(Produto produto);
-        bool Update(Produto produto);
-        bool Delete(Produto produto);
-        bool Save();
+        Task<bool> Add(Produto produto);
+        Task<bool> Update(Produto produto);
+        Task<bool> Delete(Produto produto);
+        //Task<bool> SaveAsync();
         Task<IEnumerable<Produto>> GetAll();
         Task<IEnumerable<Produto>> GetAllAtivo(char ativo);
         Task<IEnumerable<Produto>> GetAllProdutoPorMarca(int marcaId);

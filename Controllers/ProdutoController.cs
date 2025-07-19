@@ -1,6 +1,4 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Polimedica.Interface;
@@ -46,13 +44,35 @@ namespace Polimedica.Controllers
             if (id != 0)
             {
                 Produto produto = await _produtoRepository.GetById(id);
+                List<Categoria> categoriaL = new List<Categoria>();
+                List<Marca> marcaL = new List<Marca>();
+
+                var resultMar = await _marcaRepository.GetAllAsync();
+                if (resultMar != null)
+                {
+                    foreach (var item in resultMar)
+                    {
+                        marcaL.Add(item);
+                    }
+                    ViewBag.marcaVb = marcaL;
+                }
+
+                var resultCat = await _categoriaRepository.GetAllAsync();
+                if (!resultCat.IsNullOrEmpty())
+                {
+                    foreach (var item in resultCat)
+                    {
+                        categoriaL.Add(item);
+                    }
+                    ViewBag.categoriaVb = categoriaL;
+                }
                 return View(produto);
             }
             return NotFound();
         }
 
         [Authorize]
-        public async Task<IActionResult> CreateProdutoAsync()
+        public async Task<IActionResult> CreateProdutoAsync()  //  ***********  PRIMEIRO CREATE
         {
             List<Categoria> categoriaL = new List<Categoria>();
             List<Marca> marcaL = new List<Marca>();
@@ -81,43 +101,35 @@ namespace Polimedica.Controllers
 
 
         /* A função de criar produtos é extensa, então vamos explica-a parte po parte para melhor compreensão e manutenção.
-         * Na primeira parte, nós faemos o Upload das imagens. O upload é feito um a um;
-         * Na segunda parte, nós criamos o produto e salvamos as Url's das imagens.
-         * Na terceira parte nós criamos as relações entre Produto e Marca
-         * Na quarta parte nós criamos as relações entre Produto e Categoria
+         * Na primeira parte, nós criamos o produto e salvamos as Url's das imagens.
+         * Na segunda parte nós criamos as relações entre Produto e Marca
+         * Na terceira parte nós criamos as relações entre Produto e Categoria
         */
         [Authorize(Roles = "Admin,Gerente,Vendedor")]
         [HttpPost]
-        public async Task<IActionResult> CreateProduto(CreateProdutoViewModel produtoVM)
+        public async Task<IActionResult> CreateProduto(CreateProdutoViewModel produtoVM)  //  ***********  SEGUNDO CREATE
         {
 
             if (ModelState.IsValid)
             {
-
-                //Primeira parte: Upload das imagens
-                var photo1 = produtoVM.Imagem1 != null ? await _photoService.AddPhotoAsync(produtoVM.Imagem1) : null;
-                var photo2 = produtoVM.Imagem2 != null ? await _photoService.AddPhotoAsync(produtoVM.Imagem2) : null;
-                var photo3 = produtoVM.Imagem3 != null ? await _photoService.AddPhotoAsync(produtoVM.Imagem3) : null;
-                var photo4 = produtoVM.Imagem4 != null ? await _photoService.AddPhotoAsync(produtoVM.Imagem4) : null;
-                var photo5 = produtoVM.Imagem5 != null ? await _photoService.AddPhotoAsync(produtoVM.Imagem5) : null;
-
-                // Segunda parte: Criação do produto
+                // Primeira parte: Criação do produto
                 var produto = new Produto
                 {
                     NomeProduto = produtoVM.NomeProduto,
                     DescricaoProduto = produtoVM.DescricaoProduto,
-                    Preco = (long)produtoVM.Preco,
+                    Preco = (Decimal)produtoVM.Preco,
                     Ativo = produtoVM.Ativo,
-                    Imagem1 = photo1 != null ? photo1.Url.ToString() : null, //Salva as url's das imagens
-                    Imagem2 = photo2 != null ? photo2.Url.ToString() : null,
-                    Imagem3 = photo3 != null ? photo3.Url.ToString() : null,
-                    Imagem4 = photo4 != null ? photo4.Url.ToString() : null,
-                    Imagem5 = photo5 != null ? photo5.Url.ToString() : null,
+                    Imagem1 = produtoVM.Imagem1 != null ? SalvaPhoto(produtoVM.Imagem1) : "", // Verifica se a imagem é diferente da original
+                    Imagem2 = produtoVM.Imagem2 != null ? SalvaPhoto(produtoVM.Imagem2) : "", // Verifica se a imagem é diferente da original
+                    Imagem3 = produtoVM.Imagem3 != null ? SalvaPhoto(produtoVM.Imagem3) : "", // Verifica se a imagem é diferente da original
+                    Imagem4 = produtoVM.Imagem4 != null ? SalvaPhoto(produtoVM.Imagem4) : "", // Verifica se a imagem é diferente da original
+                    Imagem5 = produtoVM.Imagem5 != null ? SalvaPhoto(produtoVM.Imagem5) : "", // Verifica se a imagem é diferente da original
+
                     DataAdicionado = DateOnly.FromDateTime(DateTime.Now),
                 };
                 _produtoRepository.Add(produto); // Salva as alterações no BD para ProdutosBd
 
-                // Terceira parte: Criação das relações entre Produto e Marca
+                // segunda parte: Criação das relações entre Produto e Marca
                 int i = 0;
                 while (i < produtoVM.MarcaId.Length)
                 {
@@ -140,7 +152,7 @@ namespace Polimedica.Controllers
                     }
                 }
 
-                // Quarta parte: Criação das relações entre Produto e Categoria
+                // Terceira parte: Criação das relações entre Produto e Categoria
                 int y = 0;
                 while (y < produtoVM.CategoriaId.Length)
                 {
@@ -162,35 +174,9 @@ namespace Polimedica.Controllers
                         return View(produtoVM); // Retorna a view com o erro
                     }
                 }
-
                 return RedirectToAction("Index", "Produto");
             }
-            else
-            {
-                List<Categoria> categoriaL = new List<Categoria>();
-                List<Marca> marcaL = new List<Marca>();
-
-                var resultMar = await _marcaRepository.GetAllAsync();
-                if (resultMar != null)
-                {
-                    foreach (var item in resultMar)
-                    {
-                        marcaL.Add(item);
-                    }
-                    ViewBag.marcaVb = marcaL;
-                }
-
-                var resultCat = await _categoriaRepository.GetAllAsync();
-                if (!resultCat.IsNullOrEmpty())
-                {
-                    foreach (var item in resultCat)
-                    {
-                        categoriaL.Add(item);
-                    }
-                    ViewBag.categoriaVb = categoriaL;
-                }
-                return View(new CreateProdutoViewModel());
-            }
+            return RedirectToAction("Index", "Produto");
         }
 
         /* Método que chama a edição do produto e carrega os valores em seus devidos campos
@@ -198,9 +184,9 @@ namespace Polimedica.Controllers
          * Na segunda parte nós carregamos as marcas selecionadas para o produto
          * Na terceira parte nós carregamos as categorias selecionadas para o produto
          */
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> EditarProduto(int id)
+
+        [Authorize(Roles = "Admin,Gerente,Vendedor")]
+        public async Task<IActionResult> EditarProduto(int id)  //  ***********  PRIMEIRO EDIT
         {
             if (id != 0)
             {
@@ -210,46 +196,48 @@ namespace Polimedica.Controllers
                     return NotFound();
                 }
 
-                List<EditProdutCategoriaViewModel> categoriaL = new List<EditProdutCategoriaViewModel>(); //Cria a lista de categorias
-                List<EditProdutMarcaViewModel> marcaL = new List<EditProdutMarcaViewModel>(); //Cria a lista de marcas
-
-                var resultMarca = await _marcaProdutoRepository.getByProdutoId(id); // Carrega as marcas selecionadas para o produto
-                var resultCategoria = await _categoriaProdutoRepository.GetByProdutoId(id); // Carrega as categorias selecionadas para o produto
-
-                //Primeira parte - Carrega os item da marca para poderem ser vistas na pagina
                 var ProdutoEdit = new EditProdutoViewModel
                 {
                     NomeProduto = produto.NomeProduto,
                     DescricaoProduto = produto.DescricaoProduto,
-                    Preco = (long)produto.Preco,
+                    Preco = (Decimal)produto.Preco,
                     Ativo = produto.Ativo,
-                    Imagem1 = produto.Imagem1 != null ? new FormFile(new MemoryStream(), 0, 0, null, produto.Imagem1) : null,
-                    Imagem2 = produto.Imagem2 != null ? new FormFile(new MemoryStream(), 0, 0, null, produto.Imagem2) : null,
-                    Imagem3 = produto.Imagem3 != null ? new FormFile(new MemoryStream(), 0, 0, null, produto.Imagem3) : null,
-                    Imagem4 = produto.Imagem4 != null ? new FormFile(new MemoryStream(), 0, 0, null, produto.Imagem4) : null,
-                    Imagem5 = produto.Imagem5 != null ? new FormFile(new MemoryStream(), 0, 0, null, produto.Imagem5) : null,
+
+                    Imagem1 = produto.Imagem1,
+                    Imagem2 = produto.Imagem2,
+                    Imagem3 = produto.Imagem3,
+                    Imagem4 = produto.Imagem4,
+                    Imagem5 = produto.Imagem5
                 };
 
                 //Segunda parte - Carrega as marcas selecionadas para o produto
-                var resultMar = await _marcaRepository.GetAllAsync();
-                if (resultMar.IsNullOrEmpty())
+                List<EditProdutMarcaViewModel> marcaL = new List<EditProdutMarcaViewModel>(); //Cria a lista de marcas
+                var marcaProduto = await _marcaProdutoRepository.getByProdutoId(id); // Busca todas as marcas associadas ao produto
+                var marca = await _marcaRepository.GetAllAsync(); // Busca todas as marcas cadastradas no banco de dados
+
+                if(marca != null)
                 {
-                    foreach (var item in resultMar)
+                    foreach(var item in marca) //Para cada marca cadastrada
                     {
-                        if(resultMarca.Any(m => m.MarcaId == item.Id)) // Verifica se a marca está selecionada
+                        var Omarca = marcaProduto.FirstOrDefault(m => m.MarcaId == item.Id); // Busca se esta cadastrada no produto 
+                        if (Omarca != null)
                         {
                             marcaL.Add(new EditProdutMarcaViewModel
                             {
                                 MarcaId = item.Id,
-                                IsChecked = true // Marca está selecionada
+                                MarcaNome = item.NomeMarca,
+                                IsChecked = true, // Marca está cadastrada no produto
+                                ProdutoId = id
                             });
                         }
-                        else // Marca não está selecionada
+                        else // Marca não está cadastrada no produto
                         {
                             marcaL.Add(new EditProdutMarcaViewModel
                             {
                                 MarcaId = item.Id,
-                                IsChecked = false // Marca não está selecionada
+                                MarcaNome = item.NomeMarca,
+                                IsChecked = false, // Marca não está cadastrada no produto
+                                ProdutoId = id
                             });
                         }
                     }
@@ -257,32 +245,176 @@ namespace Polimedica.Controllers
                 }
 
                 //Terceira parte - Carrega as categorias selecionadas para o produto
-                var resultCat = await _categoriaRepository.GetAllAsync();
-                if (!resultCat.IsNullOrEmpty())
+                List<EditProdutCategoriaViewModel> categoriaL = new List<EditProdutCategoriaViewModel>(); //Cria a lista de categorias
+                var categoriaProduto = await _categoriaProdutoRepository.GetByProdutoId(id); // Busca todas as categorias associadas ao produto
+                var categoria = await _categoriaRepository.GetAllAsync(); // Busca todas as categorias cadastradas no banco de dados
+
+                if (categoria != null)
                 {
-                    foreach (var item in resultCat)
+                    foreach(var item in categoria) //Para cada categoria cadastrada
                     {
-                        if(resultCategoria.Any(c => c.CategoriaId == item.Id)) // Verifica se a categoria está selecionada 
+                        var Ocategoria = categoriaProduto.FirstOrDefault(c => c.CategoriaId == item.Id); // Busca se esta cadastrada no produto 
+                        if (Ocategoria != null)
                         {
                             categoriaL.Add(new EditProdutCategoriaViewModel
                             {
                                 CategoriaId = item.Id,
-                                IsChecked = true // Categoria está selecionada
+                                CategoriaNome = item.NomeCategoria,
+                                IsChecked = true, // Categoria está cadastrada no produto
+                                ProdutoId = id
                             });
                         }
-                        else // Categoria não está selecionada
+                        else // Categoria não está cadastrada no produto
                         {
                             categoriaL.Add(new EditProdutCategoriaViewModel
                             {
                                 CategoriaId = item.Id,
-                                IsChecked = false // Categoria não está selecionada
+                                CategoriaNome = item.NomeCategoria,
+                                IsChecked = false, // Categoria não está cadastrada no produto
+                                ProdutoId = id
                             });
                         }
                     }
                     ViewBag.categoriaVb = categoriaL;
                 }
+                return View(ProdutoEdit);
             }
-            return View(new EditProdutoViewModel());
+            return NotFound();
+        }
+
+        /* Método que atuializa os dados do produto.
+         * Na primeira parte nós verificamos se o modelo é válido
+         * Na segunda parte nós carregamos o produto pelo ID
+         * Na terceira parte atualizamos as fotos
+         * Na quarta parte atualizamos as marcas
+         * Na quinta parte atualizamos as categorias
+         */
+
+        [Authorize(Roles = "Admin,Gerente,Vendedor")]
+        [HttpPost]
+        public async Task<IActionResult> EditarProduto(EditProdutoViewModel produtoVM, int id)  //  ***********  SEGUNDO EDIT
+        {
+            if (ModelState.IsValid)
+            {
+                Produto produto = await _produtoRepository.GetById(id);
+                if (produto == null)
+                {
+                    return NotFound();
+                }
+                // Segunda parte => Atualiza os dados do produto
+                produto.NomeProduto = produtoVM.NomeProduto;
+                produto.DescricaoProduto = produtoVM.DescricaoProduto;
+                produto.Preco = (Decimal)produtoVM.Preco;
+                produto.Ativo = produtoVM.Ativo ? true: false ;
+                // Terceira Parte =>Atualiza as imagens se novas forem enviadas
+                if (produto.Imagem1 == null)
+                {
+                    DeletePhoto(produto.Imagem1);
+                    produto.Imagem1 = SalvaPhoto(produtoVM.IImagem1);
+                }
+                if (produto.Imagem2 == null)
+                {
+                    DeletePhoto(produto.Imagem2);
+                    produto.Imagem2 = SalvaPhoto(produtoVM.IImagem2);
+                }
+                if (produto.Imagem3 == null)
+                {
+                    DeletePhoto(produto.Imagem3);
+                    produto.Imagem3 = SalvaPhoto(produtoVM.IImagem3);
+                }
+                if (produto.Imagem4 == null)
+                {
+                    DeletePhoto(produto.Imagem4);
+                    produto.Imagem4 = SalvaPhoto(produtoVM.IImagem4);
+                }
+                if (produto.Imagem5 == null)
+                {
+                    DeletePhoto(produto.Imagem5);
+                    produto.Imagem5 = SalvaPhoto(produtoVM.IImagem5);
+                }
+                //_produtoRepository.Update(produto); // Atualiza o objeto no BD
+                
+                // Quarta parte = >Atualiza as relações de Marca
+                var marcasExistentes = _marcaProdutoRepository.DeleteByProdutoId(id); // Remove as marcas antigas associadas ao produto
+
+                int i = 0;
+                if(produtoVM.MarcaId != null)
+                {
+                    while (i < produtoVM.MarcaId.Length)
+                    {
+
+                        if (produtoVM.MarcaId[i].ToString() != "" && produtoVM.MarcaId[i] != null)
+                        {
+                            var marcaProd = new MarcaProduto
+                            {
+                                MarcaId = produtoVM.MarcaId[i],
+                                ProdutoId = produto.Id
+                            };
+
+                            _marcaProdutoRepository.Add(marcaProd); // Salva as alterações no BD para MarcaProdutoBd
+                            i++;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("MarcaId", "Marca não pode ser nulo ou zero.");
+                            return View(produtoVM); // Retorna a view com o erro
+                        }
+                    }
+                }
+
+                int y = 0;
+                if (produtoVM.CategoriaId != null)
+                {
+                    while (y < produtoVM.CategoriaId.Length)
+                    {
+                        if (produtoVM.CategoriaId[y].ToString() != "" && produtoVM.CategoriaId[y] != null)
+                        {
+                            var categoriaId = new CategoriaProduto
+                            {
+                                CategoriaId = produtoVM.CategoriaId[y],
+                                ProdutoId = id
+                            };
+                            _categoriaProdutoRepository.Add(categoriaId); // Adiciona as novas categorias
+                            y++;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("CategoriaId", "Categoria não pode ser nulo ou zero.");
+                            return View(produtoVM); // Retorna a view com o erro
+                        }
+                    }
+                }
+                _produtoRepository.Update(produto);
+
+                return RedirectToAction("Detalhe", "Produto", new {id = id });
+            }
+
+            return RedirectToAction("Index", "Produto");
+
+        }
+
+
+        public string SalvaPhoto(IFormFile photo)
+        {
+            var envia = photo != null ? _photoService.AddPhotoAsync(photo) : null;
+            if (envia != null)
+            {
+                return envia.Result.Url.ToString(); // Retorna a URL da imagem enviada
+            }
+            else
+            {
+                return null; // Retorna nulo se não houver imagem
+            }
+        }
+
+        public async Task<string> DeletePhoto(string publicId)
+        {
+            if (!string.IsNullOrEmpty(publicId))
+            {
+                var result = await _photoService.DeletePhotoAsync(publicId);
+                return result.Result == "ok" ? "Imagem deletada com sucesso." : "Erro ao deletar imagem.";
+            }
+            return "PublicId inválido.";
         }
     }
 }

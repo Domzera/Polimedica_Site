@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Polimedica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d522c4a5c97e65751d818e1a455b2d0d86b1c59e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4ab05b2b5562fb3544fe11f47a8b8df0e4a49c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Polimedica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Polimedica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

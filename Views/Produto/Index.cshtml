@@ -28,11 +28,15 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 @foreach(var item in Model ){
                     <div class="card m-3" style="width: 18rem;">
-                        <img src="@item.Imagem1" width="30" height="250" class="card-img-top" alt="Foto de apresentação">
+                        @if(item.Imagem1 == null){
+                            <img src="~/Image/Logo_Polimedica.png" class="card-img-top" alt="Imagem do Produto">
+                        } else {
+                            <img src="@Url.Content(item.Imagem1)" class="card-img-top" alt="Imagem do Produto">
+                        }
                         <div class="card-body">
                             <h5 class="card-title">@item.NomeProduto</h5>
                             <p class="card-text">@item.DescricaoProduto</p>
-                            <h2 class="card-title">R$ @item.Preco</h2>
+                            @* <h2 class="card-title">R$ @item.Preco</h2> *@
                             <a type="btn btn-success"
                                asp-controller="Produto"
                                asp-action="Detalhe"

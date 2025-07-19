@@ -19,14 +19,19 @@ namespace Polimedica.Repository
             return Save();
         }
 
-        public bool Delete(Marca marca)
+        public async Task<IEnumerable<Marca>?> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
+           var testa = await _context.MarcaDb.ToListAsync();
 
-        public async Task<IEnumerable<Marca>> GetAllAsync()
-        {
-            return await _context.MarcaDb.ToListAsync();
+            if(testa != null)
+            {
+                return testa;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public async Task<Marca> GetById(int id)

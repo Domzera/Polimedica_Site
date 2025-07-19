@@ -48,14 +48,14 @@ namespace Polimedica.Repository
         }
         public async Task<IEnumerable<CategoriaProduto>> GetByProdutoId(int id)
         {
-            return (IEnumerable<CategoriaProduto>)_context.CategoriaProdutoDb
+            return (List<CategoriaProduto>) await _context.CategoriaProdutoDb
                 .FromSqlRaw("SELECT * FROM CategoriaProdutoDb WHERE ProdutoId = {0}", id)
                 .ToListAsync();
         }
         public bool Save()
         {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+            var saved = _context.SaveChangesAsync();
+            return saved.IsCompletedSuccessfully && saved.Result > 0;
         }
     }
 }
