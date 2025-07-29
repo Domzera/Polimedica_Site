@@ -70,7 +70,7 @@
     }
     <br />
     <div class="form-group">
-        @if(Model.Imagem1 == "")
+        @if(Model.Imagem1 == "" || Model.Imagem1 == null)
         {
             <img src="~/Data/Image/LogoPolimedica.jpg" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
@@ -83,20 +83,19 @@
     </div>
     <br />
     <div class="col-md-6">
-        @if (Model.Imagem2 == null)        {
+        @if (Model.Imagem2 == "" || Model.Imagem2 == null)        {
             <img src="~/Data/Image/LogoPolimedica.jpg" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
         else
         {
             <img src="@Model.Imagem2" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
-)
         <label asp-for="Imagem2" class="form-label">@Model.Imagem2</label>
         <input asp-for="IImagem2" type="file" class="form-control">
     </div>
     <br />
     <div class="col-md-6">
-        @if (Model.Imagem3 == null)
+        @if (Model.Imagem3 == "" || Model.Imagem3 == null)
         {
             <img src="~/Data/Image/LogoPolimedica.jpg" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
@@ -104,13 +103,12 @@
         {
             <img src="@Model.Imagem3" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
-)
         <label asp-for="Imagem3" class="form-label">@Model.Imagem3</label>
         <input asp-for="IImagem3" type="file" class="form-control">
     </div>
     <br />
     <div class="col-md-6">
-        @if (Model.Imagem4 == null)
+        @if (Model.Imagem4 == "" || Model.Imagem4 == null)
         {
             <img src="~/Data/Image/LogoPolimedica.jpg" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
@@ -118,13 +116,12 @@
         {
             <img src="@Model.Imagem4" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
-)
         <label asp-for="Imagem4" class="form-label">@Model.Imagem4</label>
         <input asp-for="IImagem4" type="file" class="form-control">
     </div>
     <br />
     <div class="col-md-6">
-        @if (Model.Imagem5 == null)
+        @if (Model.Imagem5 == "" || Model.Imagem5 == null)
         {
             <img src="~/Data/Image/LogoPolimedica.jpg" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
@@ -132,7 +129,6 @@
         {
             <img src="@Model.Imagem5" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
         }
-)
         <label asp-for="Imagem5" class="form-label">@Model.Imagem5</label>
         <input asp-for="IImagem5" type="file" class="form-control">
     </div>

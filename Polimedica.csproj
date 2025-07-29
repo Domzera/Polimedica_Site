@@ -14,6 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Image\download.png" />
+    <Content Remove="wwwroot\Image\Fachada.jpeg" />
+    <Content Remove="wwwroot\Image\Fachada.png" />
+    <Content Remove="wwwroot\Image\Fachada2.jpg" />
+    <Content Remove="wwwroot\Image\Fachada2.png" />
+    <Content Remove="wwwroot\Image\Fachada3.jpg" />
+    <Content Remove="wwwroot\Image\FachadaCortada.jpg" />
+    <Content Remove="wwwroot\Image\Gratis.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />

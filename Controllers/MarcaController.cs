@@ -31,8 +31,9 @@ namespace Polimedica.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMarca(CreateMarcaViewModel createMarcaVM)
         {
-            var marca = await _marcaRepo.GetById(createMarcaVM.Id);
-            if (marca != null)
+            //var marca = await _marcaRepo.GetById(createMarcaVM.Id);
+            //if(marca != null)
+            if (!ModelState.IsValid)
             {
                 TempData["Error"] = "This email address is alreadt in use";
                 return View(createMarcaVM);
@@ -45,9 +46,16 @@ namespace Polimedica.Controllers
                     DescricaoMarca = createMarcaVM.DescricaoMarca,
                     LogoImagem = createMarcaVM.LogoImagemMarca
                 };
-                _marcaRepo.Add(marcaVM);
-                return RedirectToAction("Index");
+                if(marcaVM.NomeMarca != null || marcaVM.NomeMarca != ""
+                    &&
+                   marcaVM.DescricaoMarca != null || marcaVM.DescricaoMarca != "")
+                {
+                    _marcaRepo.Add(marcaVM);
+                    return RedirectToAction("Index");
+                }
+                else { return RedirectToAction("CreateMarca"); }
             }
+                
         }
     }
 }

@@ -54,26 +54,35 @@ namespace Polimedica.Controllers
                         {
                             case "Admin":
                                 return RedirectToAction("Dashboard", "Usuario");
-                                //break;
+                            //break;
                             case "Gerente":
                                 return RedirectToAction("Dashboard", "Usuario");
-                                //break;
+                            //break;
                             case "Vendedor":
-                                return RedirectToAction("Index", "Vendedor");
-                                //break;
+                                return RedirectToAction("Index", "Produto");  //"Dashboard");
+                            //break;
                             case "Cliente_Pj":
-                                return RedirectToAction("Index", "Cliente");
-                                //break;
+                                return RedirectToAction("Index", "Produto");  // "Cliente");
+                                                                              //break;
                             case "Cliente_Pf":
-                                return RedirectToAction("Index", "Cliente");
+                                return RedirectToAction("Index", "Produto"); // "Cliente");
                                 //break;
                         }
                     }
+
                     return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    ViewBag.SenhaMessage = "Senha invalida";
+                    return View(login);
+                }
             }
-            return RedirectToAction("Index", "Home");
+            else
+            {
+                ViewBag.UserMessage = "Usuário não encontrado";
+                return View(login);
+            }
         }
         public IActionResult RegistroUsuario()//   ==> Registro de Usuário
         {
@@ -103,7 +112,7 @@ namespace Polimedica.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(!await _roleManager.RoleExistsAsync("Gerente"))
+                    if (!await _roleManager.RoleExistsAsync("Gerente"))
                     {
                         await _roleManager.CreateAsync(new IdentityRole("Gerente"));
                         await _userManager.AddToRoleAsync(newUser, UserRoles.Gerente);
@@ -117,7 +126,7 @@ namespace Polimedica.Controllers
                         await _signInManager.SignInAsync(newUser, isPersistent: true);
                         return RedirectToAction("Index", "Cliente");
                     }
-                }   
+                }
             }
             return View(userRegister);
 
@@ -247,7 +256,7 @@ namespace Polimedica.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -18,7 +18,6 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
-
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#telefoneModal">
@@ -40,12 +39,17 @@
                             Entregas
                         </button>
                     </li>
-                    <li><a href="#" class="nav-link px-2 text-black">Sobre nós</a></li>
+                    <li>
+                        <a href="#" class="nav-link px-2 text-black">
+                            Sobre nós"
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="text-end">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        
                         <a type="button" class="btn btn-outline-light" asp-controller="Usuario" asp-action="Logout">Sair</a>
                     }
                     else
@@ -119,18 +123,34 @@
     </div>
 
     <!-- NAVBAR INFERIOR -->
-   @*  <header style="position: relative;">
-        <div class="container-md">
-            <img src="~/Image/Fachada2.jpg" class="opacity-25" style="width: 100%; height: auto;" alt="Fachada">
-        </div>
-        <nav class="navbar navbar-expand-lg bg-success-subtle" style="position: absolute; bottom: 0; left: 0; width: 100%;"> *@
     <header>
-        <div class="container-md">
-            <img src="~/Image/Fachada3.jpg" style="width: 100%; height: auto;" alt="Fachada">
+        <div class="container-md text-center"> <!-- Carrousel da pagina inicial -->
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner" style="width:100%; height:450px; object-fit: cover";>
+                    <div class="carousel-item active">
+                        <img src="~/Image/Banner4Editado.png" class="d-block w-100" alt="..."> <!-- Imangem 01-->
+                    </div>
+                    <div class="carousel-item"> <!-- Imangem 02-->
+                        <img src="~/Image/Banner3editado.png" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item"> <!-- Imangem 03-->
+                        <img src="~/Image/Promocao.png" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
         <nav class="navbar navbar-expand-lg bg-success-subtle">
             <div class="container-fluid">
-                <img src="~/Image/Logo_Polimedica.png" class="img-thumbnail bg-transparent" alt="Logo da Polimedica" width="300">
+                <!--Logo da navbar -->
+                <img src="~/Image/LogoNav.png" class="img-thumbnail bg-transparent" alt="Logo da Polimedica" style="width: 300px;">
                 <div class="collapse navbar-collapse align-self-end" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto">
                         @if (User.Identity.IsAuthenticated)
@@ -170,8 +190,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Home" asp-action="Index">Produtos</a>
                                 </li>
+                                @* <li class="nav-item">
+                                    <a type="nav-link" asp-controller="Usuario" asp-action="Dashboard">Dashboard</a>
+                                </li> *@
                             }
-
                         }
                         else
                         {

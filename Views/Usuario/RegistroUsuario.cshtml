@@ -1,10 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-@using Polimedica.ViewModel;
+﻿@using Polimedica.ViewModel;
 @model UserRegisterViewModel;
 
 <div class="container">
@@ -23,7 +17,13 @@
                     <input asp-for="SobreNome" class="form-control" placeholder="Sobrenome">
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Password" type="password" class="form-control" placeholder="Senha">
+                    <input asp-for="Password" type="password" oninput="check()" id="Password" class="form-control" placeholder="Senha">
+                    <br />
+                    <h5 id="Password1" style="font-size:11px">A senha deve ter pelomenos uma letra minuscula</h5>
+                    <h5 id="Password2" style="font-size:11px">A senha deve ter pelomenos uma letra maiuscula</h5>
+                    <h5 id="Password3" style="font-size:11px">A senha deve ter pelomenos um número</h5>
+                    <h5 id="Password4" style="font-size:11px">A senha deve ter um caracter especial</h5>
+                    <h5 id="Password5" style="font-size:11px">A senha deve ter no minimo 6 caracteres</h5>
                 </div>
                 <input type="submit" class="btn btn-success mt-4" value="Cadastre-se"/>
             </form>
@@ -32,4 +32,25 @@
         </div>
     </div>
 </div>
+
+<script>
+        function check() {
+        var password = document.getElementById("Password").value;
+
+        // Requisitos da senha
+        var hasUpperCase = /[A-Z]/.test(password);
+        var hasLowerCase = /[a-z]/.test(password);
+        var hasNumber = /[0-9]/.test(password);
+        var hasSpecialChar = /[\W_]/.test(password); // \W inclui tudo que não é letra ou número
+
+        document.getElementById("Password1").innerText = "A senha deve conter pelomenos um letra maiúscula" + (hasUpperCase ? " ✅ " : "");
+        document.getElementById("Password2").innerText = "A senha deve conter pelomenos um minuscula" + (hasLowerCase ? " ✅ " : "");
+        document.getElementById("Password3").innerText = "A senha deve conter pelomenos um número" + (hasNumber ? " ✅ " : "");
+        document.getElementById("Password4").innerText = "A senha deve conter pelomenos um caracter especial" + (hasSpecialChar ? " ✅ " : "");
+        document.getElementById("Password5").innerText = "A senha deve ter no minimo 6 caracteres" + (password.length >= 6 ? " ✅ " : "");
+    }
+
+</script>
+
+
 

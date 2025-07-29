@@ -20,5 +20,7 @@ namespace Polimedica.Data
         public DbSet<Pagamentos> PagamentosDb {  get; set; }
         public DbSet<Pedido> PedidoDb { get; set; }
         public DbSet<Produto> ProdutoDb { get; set; }
+        public DbSet<Promocao> Promocao { get; set; }
+        public DbSet<TerEmCasa> TerEmCasa { get; set; }
     }
 }

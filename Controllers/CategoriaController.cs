@@ -30,8 +30,9 @@ namespace Polimedica.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategoria(CreateCategoriaViewModel createCategoriaVM)
         {
-            var categoria = await _catere.GetById(createCategoriaVM.Id);
-            if (categoria != null)
+            //var categoria = await _catere.GetById(createCategoriaVM.Id);
+            //if (categoria != null)
+            if (!ModelState.IsValid)
             {
                 TempData["Error"] = "This email address is alreadt in use";
                 return View(createCategoriaVM);
@@ -43,8 +44,14 @@ namespace Polimedica.Controllers
                     NomeCategoria = createCategoriaVM.Nome,
                     DescricaoCategoria = createCategoriaVM.Descricao
                 };
-                _catere.Add(categoriaVm);
-                return RedirectToAction("Index");
+                if (categoriaVm.NomeCategoria != null || categoriaVm.NomeCategoria != ""
+                    &&
+                    categoriaVm.DescricaoCategoria != null || categoriaVm.DescricaoCategoria != "")
+                {
+                    _catere.Add(categoriaVm);
+                    return RedirectToAction("Index");
+                }
+                else { return RedirectToAction("CreateCategoria"); }
             }
 
         }

@@ -15,9 +15,9 @@
             <div class="col-5">
                 <div>
                     <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#imagem1">
-                        @if (Model.Imagem1 == null)
+                        @if (Model.Imagem1 == null || Model.Imagem1 == "")
                         {
-                            <img src="~/Image/LogoPolimedica.jpg" class="img-fluid" alt="@Model.NomeProduto">
+                            <img src="~/Image/Logo_Polimedica.png" class="img-fluid" alt="@Model.NomeProduto">
                         }
                         else
                         {
@@ -29,7 +29,7 @@
             <div class="col-2">
                 <div>
                     <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#imagem2">
-                        @if (Model.Imagem2 == null)
+                        @if (Model.Imagem2 == null || Model.Imagem2 == "")
                         {
                             <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
                         }
@@ -39,7 +39,7 @@
                         }
                     </button>
                     <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#imagem3">
-                        @if (Model.Imagem3 == null)
+                        @if (Model.Imagem3 == null || Model.Imagem3 == "")
                         {
                             <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
                         }
@@ -49,7 +49,7 @@
                         }
                     </button>
                     <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#imagem4">
-                        @if (Model.Imagem4 == null)
+                        @if (Model.Imagem4 == null || Model.Imagem4 == "")
                         {
                             <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
                         }
@@ -59,7 +59,7 @@
                         }
                     </button>
                     <button type="button" class="btn btn-sucess" data-bs-toggle="modal" data-bs-target="#imagem5">
-                        @if (Model.Imagem5 == null)
+                        @if (Model.Imagem5 == null || Model.Imagem5 == "")
                         {
                             <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;" alt="@Model.NomeProduto">
                         }
@@ -74,21 +74,42 @@
                 <div><h1>@Model.NomeProduto</h1></div>
                 <div><p><h3>@Model.DescricaoProduto</h3></p></div>
                 @* <div><h2>@Model.Preco</h2></div> *@
-                <div>@if (Model.Ativo)
+                
+                @if(User.Identity.IsAuthenticated &&
+                                User.IsInRole("Admin") ||
+                                User.IsInRole("Gerente") ||
+                               User.IsInRole("Vendedor"))
+                {
+                    @if (Model.Ativo)
                     {
-                        <h5>Aparece na loja virtual</h5>
-                    }else { <h5>Não aparece na loja virtual</h5>}
-                </div>
-                <div>
+                        <div><p><h4>Este produto está ativo no site</h4></p></div>
+                        <div><p><h4>E seu preço está cadastrado com o valor de @Model.Preco</h4></p></div>
+                    }
+                    else
+                    {
+                        <div><p><h4 style="color: red;">Este produto NÃO está ativo no site</h4></p></div>
+                        <div><p><h4>E seu preço está cadastrado com o valor de @Model.Preco</h4></p></div>
+                    }
+                }
+
+                @*   <div>
                     @if(ViewBag.categoriaVb != null)
                     {
                         <h4>Categorias:</h4>
                     }
-                </div>
+                </div> *@
                 <div>
-                    @if(ViewBag.marcaVb != null)
+                    @if (ViewBag.marcaDetalheVb != null && ((IEnumerable<dynamic>)ViewBag.marcaDetalheVb).Any())
                     {
-                        <h4>Marcas:</h4>
+                        <h4>Marcas :</h4>
+                        <table class="table">
+                            @foreach (var item in ViewBag.marcaDetalheVb)
+                            {
+                                <tr>
+                                    <td>@item.NomeMarca</td>
+                                </tr>
+                            }
+                        </table>
                     }
                 </div>
             </div>
@@ -96,7 +117,10 @@
     </section>
     <section>
         <div class="text-end">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated &&
+                        User.IsInRole("Admin") ||
+                        User.IsInRole("Gerente") ||
+                        User.IsInRole("Vendedor"))
             {
                 <a type="btn btn-success" asp-controller="Produto" asp-action="EditarProduto" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
                 <a type="btn btn-success" asp-controller="Produto" asp-action="Index" class="btn btn-primary">Voltar</a>
@@ -110,7 +134,7 @@
 
 
 
-    <!-- Modais dos botoes acima-->
+    <!-- Modais dos botoes das imagens-->
     <div class="modal fade" id="imagem1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -119,7 +143,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if (Model.Imagem1 == null)
+                    @if (Model.Imagem1 == null || Model.Imagem1 == "")
                     {
                         <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width:100%; height:100%;" alt="@Model.NomeProduto">
                     }
@@ -139,7 +163,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if (Model.Imagem2 == null)
+                    @if (Model.Imagem2 == null || Model.Imagem2 == "")
                     {
                         <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width:100%; height:100%;" alt="@Model.NomeProduto">
                     }
@@ -159,7 +183,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if (Model.Imagem3 == null)
+                    @if (Model.Imagem3 == null || Model.Imagem3 == "")
                     {
                         <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width:100%; height:100%;" alt="@Model.NomeProduto">
                     }
@@ -179,7 +203,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if (Model.Imagem4 == null)
+                    @if (Model.Imagem4 == null || Model.Imagem4 == "")
                     {
                         <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width:100%; height:100%;" alt="@Model.NomeProduto">
                     }
@@ -199,7 +223,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @if (Model.Imagem5 == null)
+                    @if (Model.Imagem5 == null || Model.Imagem5 == "")
                     {
                         <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width:100%; height:100%;" alt="@Model.NomeProduto">
                     }

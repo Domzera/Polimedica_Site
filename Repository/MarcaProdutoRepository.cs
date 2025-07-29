@@ -16,18 +16,18 @@ namespace Polimedica.Repository
         {
              await _context.Database.ExecuteSqlRawAsync("INSERT INTO MarcaProdutoDb (MarcaId, ProdutoId) VALUES ({0}, {1})",
                 marcaProduto.MarcaId, marcaProduto.ProdutoId);
-            return await SaveAsync();
+            return await Save();
         }
 
         public async Task<bool> DeleteByMarcaId(int id)
         {
             await _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE MarcaId = {0}", id);
-            return await SaveAsync();
+            return await Save();
         }
         public async Task<bool> DeleteByProdutoId(int id)
         {
             await _context.Database.ExecuteSqlRawAsync("DELETE FROM MarcaProdutoDb WHERE ProdutoId = {0}", id);
-            return await SaveAsync();
+            return await Save();
         }
 
         public async Task<IEnumerable<MarcaProduto>> getByMarcaId(int id)
@@ -43,7 +43,7 @@ namespace Polimedica.Repository
                 .ToListAsync();
         }
 
-        private async Task<bool> SaveAsync()
+        private async Task<bool> Save()
         {
             return await _context.SaveChangesAsync() > 0;
         }
@@ -52,13 +52,13 @@ namespace Polimedica.Repository
         {
              await _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET ProdutoId = {0} WHERE MarcaId = {1}",
                 marcaProduto.ProdutoId, marcaProduto.MarcaId);
-            return await SaveAsync();
+            return await Save();
         }
         public async Task<bool> UpdateByProdutoId(MarcaProduto marcaProduto)
         {
             await _context.Database.ExecuteSqlRawAsync("UPDATE MarcaProdutoDb SET MarcaId = {0} WHERE ProdutoId = {1}",
                marcaProduto.MarcaId, marcaProduto.ProdutoId);
-            return await SaveAsync();
+            return await Save();
         }
     }
 }

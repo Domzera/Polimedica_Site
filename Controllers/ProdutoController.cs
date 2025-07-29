@@ -45,16 +45,22 @@ namespace Polimedica.Controllers
             {
                 Produto produto = await _produtoRepository.GetById(id);
                 List<Categoria> categoriaL = new List<Categoria>();
-                List<Marca> marcaL = new List<Marca>();
+                List<DetalheMarcaViewModel> marcaL = new List<DetalheMarcaViewModel>();
 
-                var resultMar = await _marcaRepository.GetAllAsync();
-                if (resultMar != null)
+                var todasMarcas = await _marcaRepository.GetAllAsync();
+                var marcasProduto = await _marcaProdutoRepository.getByProdutoId(id);
+
+                if (marcasProduto != null)
                 {
-                    foreach (var item in resultMar)
+                    foreach (var item in marcasProduto)
                     {
-                        marcaL.Add(item);
+                        marcaL.Add(new DetalheMarcaViewModel
+                        {
+                            MarcaId = item.MarcaId,
+                            NomeMarca = todasMarcas.FirstOrDefault(m => m.Id == item.MarcaId)?.NomeMarca // Busca o nome da marca pelo ID
+                        });
                     }
-                    ViewBag.marcaVb = marcaL;
+                    ViewBag.marcaDetalheVb = marcaL;
                 }
 
                 var resultCat = await _categoriaRepository.GetAllAsync();
@@ -127,7 +133,7 @@ namespace Polimedica.Controllers
 
                     DataAdicionado = DateOnly.FromDateTime(DateTime.Now),
                 };
-                _produtoRepository.Add(produto); // Salva as alterações no BD para ProdutosBd
+                await _produtoRepository.Add(produto); // Salva as alterações no BD para ProdutosBd
 
                 // segunda parte: Criação das relações entre Produto e Marca
                 int i = 0;
@@ -142,7 +148,7 @@ namespace Polimedica.Controllers
                             ProdutoId = produto.Id
                         };
 
-                        _marcaProdutoRepository.Add(marcaId); // Salva as alterações no BD para MarcaProdutoBd
+                        await _marcaProdutoRepository.Add(marcaId); // Salva as alterações no BD para MarcaProdutoBd
                         i++;
                     }
                     else
@@ -165,7 +171,7 @@ namespace Polimedica.Controllers
                             ProdutoId = produto.Id
                         };
 
-                        _categoriaProdutoRepository.Add(categoriaId); // Salva as alterações no BD para CategoriaProdutoBd
+                        await _categoriaProdutoRepository.Add(categoriaId); // Salva as alterações no BD para CategoriaProdutoBd
                         y++;
                     }
                     else
@@ -217,7 +223,8 @@ namespace Polimedica.Controllers
 
                 if(marca != null)
                 {
-                    foreach(var item in marca) //Para cada marca cadastrada
+                    //Carrega as marcas
+                    foreach (var item in marca) //Para cada marca cadastrada
                     {
                         var Omarca = marcaProduto.FirstOrDefault(m => m.MarcaId == item.Id); // Busca se esta cadastrada no produto 
                         if (Omarca != null)
@@ -251,7 +258,8 @@ namespace Polimedica.Controllers
 
                 if (categoria != null)
                 {
-                    foreach(var item in categoria) //Para cada categoria cadastrada
+                    //Carrega as categorias
+                    foreach (var item in categoria) //Para cada categoria cadastrada
                     {
                         var Ocategoria = categoriaProduto.FirstOrDefault(c => c.CategoriaId == item.Id); // Busca se esta cadastrada no produto 
                         if (Ocategoria != null)
@@ -284,7 +292,7 @@ namespace Polimedica.Controllers
 
         /* Método que atuializa os dados do produto.
          * Na primeira parte nós verificamos se o modelo é válido
-         * Na segunda parte nós carregamos o produto pelo ID
+         * Na segunda parte atualizamos os dados do produto
          * Na terceira parte atualizamos as fotos
          * Na quarta parte atualizamos as marcas
          * Na quinta parte atualizamos as categorias
@@ -294,6 +302,7 @@ namespace Polimedica.Controllers
         [HttpPost]
         public async Task<IActionResult> EditarProduto(EditProdutoViewModel produtoVM, int id)  //  ***********  SEGUNDO EDIT
         {
+            // Verifica se o ViewModel é valido
             if (ModelState.IsValid)
             {
                 Produto produto = await _produtoRepository.GetById(id);
@@ -307,39 +316,42 @@ namespace Polimedica.Controllers
                 produto.Preco = (Decimal)produtoVM.Preco;
                 produto.Ativo = produtoVM.Ativo ? true: false ;
                 // Terceira Parte =>Atualiza as imagens se novas forem enviadas
-                if (produto.Imagem1 == null)
+                if (produtoVM.IImagem1 != null)
                 {
-                    DeletePhoto(produto.Imagem1);
+                    await DeletePhoto(produto.Imagem1);
                     produto.Imagem1 = SalvaPhoto(produtoVM.IImagem1);
                 }
-                if (produto.Imagem2 == null)
+                if (produtoVM.IImagem2 != null)
                 {
-                    DeletePhoto(produto.Imagem2);
+                    await DeletePhoto(produto.Imagem2);
                     produto.Imagem2 = SalvaPhoto(produtoVM.IImagem2);
                 }
-                if (produto.Imagem3 == null)
+                if (produtoVM.IImagem3 != null)
                 {
-                    DeletePhoto(produto.Imagem3);
+                    await DeletePhoto(produto.Imagem3);
                     produto.Imagem3 = SalvaPhoto(produtoVM.IImagem3);
                 }
-                if (produto.Imagem4 == null)
+                if (produtoVM.IImagem4 != null)
                 {
-                    DeletePhoto(produto.Imagem4);
+                    await DeletePhoto(produto.Imagem4);
                     produto.Imagem4 = SalvaPhoto(produtoVM.IImagem4);
                 }
-                if (produto.Imagem5 == null)
+                if (produtoVM.IImagem5 != null)
                 {
-                    DeletePhoto(produto.Imagem5);
+                    await DeletePhoto(produto.Imagem5);
                     produto.Imagem5 = SalvaPhoto(produtoVM.IImagem5);
                 }
-                //_produtoRepository.Update(produto); // Atualiza o objeto no BD
-                
-                // Quarta parte = >Atualiza as relações de Marca
-                var marcasExistentes = _marcaProdutoRepository.DeleteByProdutoId(id); // Remove as marcas antigas associadas ao produto
 
+                var marcaProduto = await _marcaProdutoRepository.getByProdutoId(id); // Busca todas as marcas associadas ao produto
                 int i = 0;
                 if(produtoVM.MarcaId != null)
                 {
+                    //Deleta todas as associações de categorias do produto
+                    foreach (var item in marcaProduto)
+                    {
+                        var deletaMarca = await _marcaProdutoRepository.DeleteByProdutoId(item.ProdutoId);
+                    }
+                    // Adiciona as novas marcas
                     while (i < produtoVM.MarcaId.Length)
                     {
 
@@ -351,7 +363,7 @@ namespace Polimedica.Controllers
                                 ProdutoId = produto.Id
                             };
 
-                            _marcaProdutoRepository.Add(marcaProd); // Salva as alterações no BD para MarcaProdutoBd
+                            await _marcaProdutoRepository.Add(marcaProd); // Salva as alterações no BD para MarcaProdutoBd
                             i++;
                         }
                         else
@@ -365,6 +377,12 @@ namespace Polimedica.Controllers
                 int y = 0;
                 if (produtoVM.CategoriaId != null)
                 {
+                    var categoriaProduto = await _categoriaProdutoRepository.GetByProdutoId(id); // Busca todas as categorias associadas ao produto
+                    // Deleta todas associações de marcas do produto
+                    foreach (var item in categoriaProduto)
+                    {
+                        var deletaCategoria = await _categoriaProdutoRepository.DeleteByProdutoId(item.ProdutoId);
+                    }
                     while (y < produtoVM.CategoriaId.Length)
                     {
                         if (produtoVM.CategoriaId[y].ToString() != "" && produtoVM.CategoriaId[y] != null)
@@ -374,7 +392,7 @@ namespace Polimedica.Controllers
                                 CategoriaId = produtoVM.CategoriaId[y],
                                 ProdutoId = id
                             };
-                            _categoriaProdutoRepository.Add(categoriaId); // Adiciona as novas categorias
+                            await _categoriaProdutoRepository.Add(categoriaId); // Adiciona as novas categorias
                             y++;
                         }
                         else
@@ -384,7 +402,7 @@ namespace Polimedica.Controllers
                         }
                     }
                 }
-                _produtoRepository.Update(produto);
+                await _produtoRepository.Update(produto);
 
                 return RedirectToAction("Detalhe", "Produto", new {id = id });
             }
