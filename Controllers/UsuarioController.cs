@@ -102,7 +102,7 @@ namespace Polimedica.Controllers
             {
                 var newUser = new Usuario()
                 {
-                    UserName = userRegister.Name + "-" + userRegister.SobreNome + "-" + userRegister.Email,
+                    UserName = userRegister.Name + "_" + userRegister.SobreNome,
                     PrimeiroNome = userRegister.Name,
                     SobreNome = userRegister.SobreNome,
                     Email = userRegister.Email,

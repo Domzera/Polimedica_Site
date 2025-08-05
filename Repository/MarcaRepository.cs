@@ -39,7 +39,7 @@ namespace Polimedica.Repository
             return await _context.MarcaDb.FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public bool Save()
+        private bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0;

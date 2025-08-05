@@ -5,7 +5,9 @@ wwwroot\Image\Banner1.png
 wwwroot\Image\Banner2editado.jpg
 wwwroot\Image\Banner3editado.png
 wwwroot\Image\Banner4Editado.png
+wwwroot\Image\BannerEditado1.png
 wwwroot\Image\LogoNav.png
+wwwroot\Image\logoPequeno.jpg
 wwwroot\Image\Logo_Polimedica.png
 wwwroot\Image\Promocao.png
 wwwroot\js\site.js

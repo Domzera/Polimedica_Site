@@ -15,5 +15,10 @@ namespace Polimedica.ViewModel
         public IFormFile? Imagem4 { get; set; }
         public IFormFile? Imagem5 { get; set; }
         public Boolean Ativo {  get; set; }
+        public Boolean Promocao { get; set; }
+        public float PrecoPromocional { get; set; }
+        public DateOnly DataInicioPromocao { get; set; }
+        public DateOnly DataFinalPromocao { get; set; }
+        public Boolean TerEmCasa { get; set; }
     }
 }

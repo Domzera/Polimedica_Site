@@ -140,5 +140,38 @@
         </label>
     </div>
     <br />
+    <br />
+    <div>
+        <input asp-for="TerEmCasa" class="form-check-input" type="checkbox">
+        <label asp-for="TerEmCasa" class="form-check-label" for="gridCheck">
+            Ter em casa
+        </label>
+    </div>
+    <br />
+    <div>
+        <div>
+            <input asp-for="Promocao" class="form-check-input" type="checkbox">
+            <label asp-for="Promocao" class="form-check-label" for="gridCheck">
+                Promoção
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrecoPromocional" class="form-label">Preço promocional</label>
+            <input asp-for="PrecoPromocional" class="form-control" placeholder="Preço promocional" type="text">
+        </div>
+        <div>
+            <div class="form-group">
+                <label for="DataInicial">Data Inicial da Promoção</label>
+                <input type="date" class="form-control datepicker" id="datainicial" name="datainicial" />
+            </div>
+
+            <div class="form-group">
+                <label for="DataFinal">Data Final da Promoção</label>
+                <input type="date" class="form-control datepicker" id="datafinal" name="datafinal" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
     <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

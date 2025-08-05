@@ -19,5 +19,10 @@
         public IFormFile? IImagem5 { get; set; }
         public string? Imagem5 { get; set; }
         public Boolean Ativo { get; set; }
+        public Boolean Promocao { get; set; }
+        public float PrecoPromocional { get; set; }
+        public DateOnly DataInicioPromocao { get; set; }
+        public DateOnly DataFinalPromocao { get; set; }
+        public Boolean TerEmCasa { get; set; }
     }
 }

@@ -1,0 +1,85 @@
+﻿@using Polimedica.ViewModel;
+@model BannerViewModel
+
+<title>@ViewData["Title"] - Edição de Banner</title>
+
+<section class="banner">
+    <form method="post" asp-action="Index" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-5 mt-4">
+                <h1>Configuração dos Banner de propagando da paginao dos Produtos</h1>
+                <h4 class="mb-4 mt-4">
+                    Os banner tem que seguir um padrão de tamanho.<br />
+                    Eles tem que ter 1200 pixels de altura e 450 pixels de largura.
+                </h4>
+            </div>
+
+            <div class="col-2 mb-4">
+                <h5>Imagem 1</h5>
+            </div>
+            <div class="col-8">
+                <div class="form-group">
+                    @if (Model.ImageUrl1 == "Coloque seu primeiro Banner" || Model.ImageUrl1 == null)
+                    {
+                        <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    else
+                    {
+                        <img src="@Model.ImageUrl1" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    <label asp-for="ImageUrl1" class="form-label">@Model.ImageUrl1</label>
+                    <input asp-for="IImageUrl1" type="file" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+            <h5>Imagem 2</h5>
+            <hr />
+            <div class="col-2 mb-4">
+            </div>
+            <div class="col-8">
+                <div class="form-group">
+                    @if (Model.ImageUrl2 == "Coloque seu primeiro Banner" || Model.ImageUrl2 == null)
+                    {
+                        <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    else
+                    {
+                        <img src="@Model.ImageUrl2" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    <label asp-for="ImageUrl2" class="form-label">@Model.ImageUrl2</label>
+                    <input asp-for="IImageUrl2" type="file" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+
+            <hr />
+            <div class="col-2">
+                <h5>Imagem 3</h5>
+            </div>
+            <div class="col-8">
+                <div class="form-group">
+                    @if (Model.ImageUrl3 == "Coloque seu primeiro Banner" || Model.ImageUrl3 == null)
+                    {
+                        <img src="~/Image/Logo_Polimedica.png" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    else
+                    {
+                        <img src="@Model.ImageUrl3" class="mh-100" style="width: 100px; height:120px;">
+                    }
+                    <label asp-for="ImageUrl3" class="form-label">@Model.ImageUrl3</label>
+                    <input asp-for="IImageUrl3" type="file" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</section>

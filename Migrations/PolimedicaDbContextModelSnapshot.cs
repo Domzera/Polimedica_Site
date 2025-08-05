@@ -182,6 +182,28 @@ namespace Polimedica.Migrations
                     b.ToTable("AvaliacaoDb");
                 });
 
+            modelBuilder.Entity("Polimedica.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Banner1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Banner2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Banner3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BannerDb");
+                });
+
             modelBuilder.Entity("Polimedica.Models.CarrinhoDeCompras", b =>
                 {
                     b.Property<int>("Id")
@@ -340,6 +362,7 @@ namespace Polimedica.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeMarca")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -461,6 +484,7 @@ namespace Polimedica.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Preco")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantidadeEmEstoque")
@@ -469,6 +493,48 @@ namespace Polimedica.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProdutoDb");
+                });
+
+            modelBuilder.Entity("Polimedica.Models.Promocao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("DataFinal")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("Datainicio")
+                        .HasColumnType("date");
+
+                    b.Property<decimal>("Preco")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProdutoID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromocaoDb");
+                });
+
+            modelBuilder.Entity("Polimedica.Models.TerEmCasa", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TerEmCasaDb");
                 });
 
             modelBuilder.Entity("Polimedica.Models.Usuario", b =>

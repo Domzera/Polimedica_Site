@@ -1,12 +1,81 @@
 ﻿@model IEnumerable<Produto>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 <title>@ViewData["Title"] - Lista de Produtos</title>
+
+<head>
+    <!-- Outros metadados -->
+    <style>
+        .imagem-container {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .imagem-ajustada {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 100%;
+            height: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+
 <main>
+    <section>
+        <div class="container-md text-center">
+            <!-- Carrousel da pagina inicial -->
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner" >
+                    <div class="carousel-item active imagem-container">
+                        <!-- Imangem 01-->
+                        @if(ViewBag.banner1 != "null")
+                        {
+                            <img src="@ViewBag.banner1" class="imagem-ajustada" alt="Banner promocional 1">
+                        }
+                        else
+                        {
+                            <img src="~/Image/LogoNav.png" class="imagem-ajustada" alt="Banner promocional 1">
+                        }
+)
+                    </div>
+                    <div class="carousel-item imagem-container">
+                        <!-- Imangem 02-->
+                        @if(ViewBag.banner2 != "null")
+                        {
+                            <img src="@ViewBag.banner2" class="imagem-ajustada" alt="Banner promocional 2">
+                        }
+                        else
+                        {
+                            <img src="~/Image/LogoNav.png" class="imagem-ajustada" alt="Banner promocional 2">
+                        }
+)
+                    </div>
+                    <div class="carousel-item imagem-container">
+                        <!-- Imangem 03-->
+                        @if(ViewBag.banner3 != "null")
+                        {
+                            <img src="@ViewBag.banner3" class="imagem-ajustada" alt="Banner promocional 3">
+                        }
+                        else
+                        {
+                            <img src="~/Image/LogoNav.png" class="imagem-ajustada" alt="Banner promocional 3">
+                        }
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
     <section>
         <section class="py-2 text-center container">
             <div class="row py-lg-5">

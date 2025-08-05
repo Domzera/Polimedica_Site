@@ -18,6 +18,22 @@ namespace Polimedica.Services
             _cloudinary = new Cloudinary(acc);
         }
 
+        public async Task<ImageUploadResult> AddBannerAsync(IFormFile file)
+        {
+            var uploadResult = new ImageUploadResult();
+            if (file.Length > 0)
+            {
+                using var stream = file.OpenReadStream();
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    Transformation = new Transformation().Height(450).Width(1200).Crop("fill").Gravity("face")
+                };
+                uploadResult = _cloudinary.Upload(uploadParams);
+            }
+            return await Task.FromResult(uploadResult);
+        }
+
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
             var uploadResult = new ImageUploadResult();

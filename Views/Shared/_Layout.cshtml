@@ -124,29 +124,6 @@
 
     <!-- NAVBAR INFERIOR -->
     <header>
-        <div class="container-md text-center"> <!-- Carrousel da pagina inicial -->
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner" style="width:100%; height:450px; object-fit: cover";>
-                    <div class="carousel-item active">
-                        <img src="~/Image/Banner4Editado.png" class="d-block w-100" alt="..."> <!-- Imangem 01-->
-                    </div>
-                    <div class="carousel-item"> <!-- Imangem 02-->
-                        <img src="~/Image/Banner3editado.png" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item"> <!-- Imangem 03-->
-                        <img src="~/Image/Promocao.png" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
         <nav class="navbar navbar-expand-lg bg-success-subtle">
             <div class="container-fluid">
                 <!--Logo da navbar -->
@@ -234,6 +211,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!--Bootstrap 5.3.3 JavaScript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)

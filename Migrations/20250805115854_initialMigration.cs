@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Polimedica.Migrations
 {
     /// <inheritdoc />
-    public partial class FristMigratiom : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,21 @@ namespace Polimedica.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AvaliacaoDb", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BannerDb",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Banner1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Banner2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Banner3 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BannerDb", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,7 +138,7 @@ namespace Polimedica.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeMarca = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NomeMarca = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescricaoMarca = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LogoImagem = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -151,7 +166,7 @@ namespace Polimedica.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeProduto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescricaoProduto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     QuantidadeEmEstoque = table.Column<int>(type: "int", nullable: false),
                     Imagem1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Imagem2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -164,6 +179,35 @@ namespace Polimedica.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProdutoDb", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PromocaoDb",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProdutoID = table.Column<int>(type: "int", nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Datainicio = table.Column<DateOnly>(type: "date", nullable: false),
+                    DataFinal = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromocaoDb", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TerEmCasaDb",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProdutoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TerEmCasaDb", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -478,6 +522,9 @@ namespace Polimedica.Migrations
                 name: "AvaliacaoDb");
 
             migrationBuilder.DropTable(
+                name: "BannerDb");
+
+            migrationBuilder.DropTable(
                 name: "CarrinhoDeComprasDb");
 
             migrationBuilder.DropTable(
@@ -500,6 +547,12 @@ namespace Polimedica.Migrations
 
             migrationBuilder.DropTable(
                 name: "PagamentosDb");
+
+            migrationBuilder.DropTable(
+                name: "PromocaoDb");
+
+            migrationBuilder.DropTable(
+                name: "TerEmCasaDb");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

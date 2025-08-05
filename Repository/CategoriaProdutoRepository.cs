@@ -12,6 +12,7 @@ namespace Polimedica.Repository
         {
             _context = context;
         }
+
         public async Task<bool> Add(CategoriaProduto categoriaProduto)
         {
             await _context.Database.ExecuteSqlRawAsync("INSERT INTO CategoriaProdutoDb (CategoriaId, ProdutoId) VALUES ({0}, {1})",

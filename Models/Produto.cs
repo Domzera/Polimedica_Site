@@ -7,8 +7,7 @@ namespace Polimedica.Models
         public int Id { get; set; }
         public string NomeProduto { get; set; }
         public string DescricaoProduto {  get; set; }
-        [Column(TypeName = "decimal(18,2)")]
-        public Decimal Preco {  get; set; }
+        public decimal Preco {  get; set; }
         public int QuantidadeEmEstoque {  get; set; }
         public string? Imagem1 {  get; set; }
         public string? Imagem2 { get; set; }

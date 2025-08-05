@@ -18,6 +18,9 @@ builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<IMarcaProdutoRepository, MarcaProdutoRepository>();
 builder.Services.AddScoped<ICategoriaProdutoRepository, CategoriaProdutoRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoServie>();
+builder.Services.AddScoped<IBannerRepository, BannerRepository>();
+builder.Services.AddScoped<IPromocaoRepository, PromocaoRepository>();
+builder.Services.AddScoped<ITerEmCasaRepository, TerEmCasaRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings")); 
 builder.Services.AddDbContext<PolimedicaDbContext>(options =>
 {

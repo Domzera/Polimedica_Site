@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public string NomeMarca { get; set; }
         public string DescricaoMarca { get; set; }
-        public string LogoImagemMarca {  get; set; }
+        public string? LogoImagemMarca {  get; set; }
     }
 }

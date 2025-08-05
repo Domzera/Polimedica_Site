@@ -15,6 +15,9 @@ namespace Polimedica.Controllers
         private readonly IMarcaProdutoRepository _marcaProdutoRepository;
         private readonly ICategoriaProdutoRepository _categoriaProdutoRepository;
         private readonly IPhotoService _photoService;
+        private readonly IBannerRepository _banner;
+        private readonly IPromocaoRepository _promocaoRepository;
+        private readonly ITerEmCasaRepository _terEmCasaRepository;
 
         public ProdutoController(
             IProdutoRepository produtoRepository,
@@ -22,7 +25,10 @@ namespace Polimedica.Controllers
             IMarcaRepository marcaRepository,
             IMarcaProdutoRepository marcaProdutoRepository,
             ICategoriaProdutoRepository categoriaProdutoRepository,
-            IPhotoService photoService
+            IPhotoService photoService,
+            IBannerRepository banner,
+            IPromocaoRepository promocaoRepository,
+            ITerEmCasaRepository terEmCasaRepository
             )
         {
             _produtoRepository = produtoRepository;
@@ -31,12 +37,31 @@ namespace Polimedica.Controllers
             _marcaProdutoRepository = marcaProdutoRepository;
             _categoriaProdutoRepository = categoriaProdutoRepository;
             _photoService = photoService;
+            _banner = banner;
+            _promocaoRepository = promocaoRepository;
+            _terEmCasaRepository = terEmCasaRepository;
         }
 
         // Começa aqui
         public async Task<IActionResult> IndexAsync()
         {
             IEnumerable<Produto> produtos = await _produtoRepository.GetAll();
+
+            Banner banner = await _banner.GetBanner(1);
+            if (banner != null)
+            {
+                ViewBag.Banner1 = banner.Banner1 == null ? "/Image/LogoNav.png" : banner.Banner1;
+                ViewBag.Banner2 = banner.Banner2 == null ? "/Image/LogoNav.png" : banner.Banner2;
+                ViewBag.Banner3 = banner.Banner3 == null ? "/Image/LogoNav.png" : banner.Banner3;
+            }
+            else
+            {
+                // Caminho padrão para o Logo da Polimeidca
+                ViewBag.Banner1 = "/Image/LogoNav.png";
+                ViewBag.Banner2 = "/Image/LogoNav.png";
+                ViewBag.Banner3 = "/Image/LogoNav.png";
+            }
+
             return View(produtos);
         }
         public async Task<IActionResult> Detalhe(int id)
@@ -134,6 +159,27 @@ namespace Polimedica.Controllers
                     DataAdicionado = DateOnly.FromDateTime(DateTime.Now),
                 };
                 await _produtoRepository.Add(produto); // Salva as alterações no BD para ProdutosBd
+                
+                if(produtoVM.Promocao)
+                {
+                    var promocao = new Promocao
+                    {
+                        ProdutoID = produto.Id,
+                        Preco = (Decimal)produtoVM.Preco,
+                        Datainicio = DateOnly.FromDateTime(DateTime.Now),
+                        DataFinal = DateOnly.FromDateTime(DateTime.Now.AddDays(30)) // Define a data final como 30 dias após a data de início
+                    };
+                    await _promocaoRepository.Add(promocao); // Salva as alterações no BD para PromoçãoBd
+                }              
+                
+                if(produtoVM.TerEmCasa)
+                {
+                    var terEmCasa = new TerEmCasa
+                    {
+                        ProdutoId = produto.Id
+                    };
+                    await _terEmCasaRepository.Add(terEmCasa); // Salva as alterações no BD para TerEmCasaBd
+                }
 
                 // segunda parte: Criação das relações entre Produto e Marca
                 int i = 0;
@@ -180,6 +226,29 @@ namespace Polimedica.Controllers
                         return View(produtoVM); // Retorna a view com o erro
                     }
                 }
+                // vViewBag da Promoção
+                if (produtoVM.Promocao != null)
+                {
+
+                    var promocao = new Promocao
+                    {
+                        ProdutoID = produto.Id,
+                        Preco = (Decimal)produtoVM.Preco,
+                        Datainicio = DateOnly.FromDateTime(DateTime.Now),
+                        DataFinal = DateOnly.FromDateTime(DateTime.Now.AddDays(30)) // Define a data final como 30 dias após a data de início
+                    };
+                    await _promocaoRepository.Add(promocao);
+                }
+                // ViewBag da TerEmCasa
+                if (produtoVM.TerEmCasa != null)
+                {
+                    var terEmCasa = new TerEmCasa
+                    {
+                        ProdutoId = produto.Id
+                    };
+                    await _terEmCasaRepository.Add(terEmCasa);
+                }
+
                 return RedirectToAction("Index", "Produto");
             }
             return RedirectToAction("Index", "Produto");
@@ -221,7 +290,7 @@ namespace Polimedica.Controllers
                 var marcaProduto = await _marcaProdutoRepository.getByProdutoId(id); // Busca todas as marcas associadas ao produto
                 var marca = await _marcaRepository.GetAllAsync(); // Busca todas as marcas cadastradas no banco de dados
 
-                if(marca != null)
+                if (marca != null)
                 {
                     //Carrega as marcas
                     foreach (var item in marca) //Para cada marca cadastrada
@@ -314,7 +383,7 @@ namespace Polimedica.Controllers
                 produto.NomeProduto = produtoVM.NomeProduto;
                 produto.DescricaoProduto = produtoVM.DescricaoProduto;
                 produto.Preco = (Decimal)produtoVM.Preco;
-                produto.Ativo = produtoVM.Ativo ? true: false ;
+                produto.Ativo = produtoVM.Ativo ? true : false;
                 // Terceira Parte =>Atualiza as imagens se novas forem enviadas
                 if (produtoVM.IImagem1 != null)
                 {
@@ -344,7 +413,7 @@ namespace Polimedica.Controllers
 
                 var marcaProduto = await _marcaProdutoRepository.getByProdutoId(id); // Busca todas as marcas associadas ao produto
                 int i = 0;
-                if(produtoVM.MarcaId != null)
+                if (produtoVM.MarcaId != null)
                 {
                     //Deleta todas as associações de categorias do produto
                     foreach (var item in marcaProduto)
@@ -404,7 +473,7 @@ namespace Polimedica.Controllers
                 }
                 await _produtoRepository.Update(produto);
 
-                return RedirectToAction("Detalhe", "Produto", new {id = id });
+                return RedirectToAction("Detalhe", "Produto", new { id = id });
             }
 
             return RedirectToAction("Index", "Produto");
