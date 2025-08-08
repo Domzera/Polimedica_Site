@@ -1,6 +1,7 @@
-﻿@model IEnumerable<Produto>
+﻿@using Polimedica.ViewModel
+@model IEnumerable<PromocaoViewModel>
 
-<title>@ViewData["Title"] - Lista de Produtos</title>
+<title>@ViewData["Title"] - Lista de Produtos em Promoção</title>
 
 <head>
     <!-- Outros metadados -->
@@ -28,10 +29,10 @@
         <div class="container-md text-center">
             <!-- Carrousel da pagina inicial -->
             <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner" >
+                <div class="carousel-inner">
                     <div class="carousel-item active imagem-container">
                         <!-- Imangem 01-->
-                        @if(ViewBag.banner1 != "null")
+                        @if (ViewBag.banner1 != "null")
                         {
                             <img src="@ViewBag.banner1" class="imagem-ajustada" alt="Banner promocional 1">
                         }
@@ -42,7 +43,7 @@
                     </div>
                     <div class="carousel-item imagem-container">
                         <!-- Imangem 02-->
-                        @if(ViewBag.banner2 != "null")
+                        @if (ViewBag.banner2 != "null")
                         {
                             <img src="@ViewBag.banner2" class="imagem-ajustada" alt="Banner promocional 2">
                         }
@@ -53,7 +54,7 @@
                     </div>
                     <div class="carousel-item imagem-container">
                         <!-- Imangem 03-->
-                        @if(ViewBag.banner3 != "null")
+                        @if (ViewBag.banner3 != "null")
                         {
                             <img src="@ViewBag.banner3" class="imagem-ajustada" alt="Banner promocional 3">
                         }
@@ -74,26 +75,59 @@
             </div>
         </div>
     </section>
-    <section>
-        <section class="py-2 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Produtos</h1>
-                    <p class="lead text-muted">Seu bem estar é nosso melhor negócio!</p>
+    <section class="py-2 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Promoções</h1>
+                <p class="lead text-muted">Aqui você encontra todas as nossas promoções.</p>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <section>
         <div class="album py-2" style="background-color: transparent;">
             <div class="container" style="background-color: transparent;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    @if(Model != null)
+                    @foreach (var item in Model)
                     {
-                        @foreach (var item in Model)
+                        @if (item.Ativo == true)
                         {
-                            @if (item.Ativo == true)
+                            <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.ProdutiId"
+                               class="d-flex justify-content-center p-2"
+                               style="background-color: transparent; border: none; text-decoration: none;">
+
+                                <div class="card align-items-center w-100"
+                                     style="background-color: transparent; border: none; width: 18rem;">
+
+                                    @if (item.Imagem1 == null || item.Imagem1 == "")
+                                    {
+                                        <img src="~/Image/Logo_Polimedica.png" class="card-img-top" alt="Imagem do Produto">
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content(item.Imagem1)" class="card-img-top" alt="Imagem do Produto">
+                                    }
+
+                                    <div class="card-body" style="background-color: transparent;">
+                                        <h5 class="card-title">@item.NomeProduto</h5>
+                                        <p class="card-text">@item.DescricaoProduto</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        @if (User.Identity.IsAuthenticated &&
+                                            User.IsInRole("Admin") ||
+                                            User.IsInRole("Gerente") ||
+                                            User.IsInRole("Vendedor"))
+                        {
+
+                            @if (item.Ativo == false)
                             {
-                                <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.Id"
+                                <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.ProdutiId"
                                    class="d-flex justify-content-center p-2"
                                    style="background-color: transparent; border: none; text-decoration: none;">
 
@@ -110,6 +144,7 @@
                                         }
 
                                         <div class="card-body" style="background-color: transparent;">
+                                            <h4 style="color: red;">Este item não está Ativo no site.</h4>
                                             <h5 class="card-title">@item.NomeProduto</h5>
                                             <p class="card-text">@item.DescricaoProduto</p>
                                         </div>
@@ -117,44 +152,6 @@
                                 </a>
                             }
                         }
-
-                        @foreach (var item in Model)
-                        {
-                            @if (User.Identity.IsAuthenticated &&
-                                                User.IsInRole("Admin") ||
-                                                User.IsInRole("Gerente") ||
-                                                User.IsInRole("Vendedor"))
-                            {
-
-                                @if (item.Ativo == false)
-                                {
-                                    <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.Id"
-                                       class="d-flex justify-content-center p-2"
-                                       style="background-color: transparent; border: none; text-decoration: none;">
-
-                                        <div class="card align-items-center w-100"
-                                             style="background-color: transparent; border: none; width: 18rem;">
-
-                                            @if (item.Imagem1 == null || item.Imagem1 == "")
-                                            {
-                                                <img src="~/Image/Logo_Polimedica.png" class="card-img-top" alt="Imagem do Produto">
-                                            }
-                                            else
-                                            {
-                                                <img src="@Url.Content(item.Imagem1)" class="card-img-top" alt="Imagem do Produto">
-                                            }
-
-                                            <div class="card-body" style="background-color: transparent;">
-                                                <h4 style="color: red;">Este item não está Ativo no site.</h4>
-                                                <h5 class="card-title">@item.NomeProduto</h5>
-                                                <p class="card-text">@item.DescricaoProduto</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                }
-                            }
-                        }
-
                     }
 
                 </div>

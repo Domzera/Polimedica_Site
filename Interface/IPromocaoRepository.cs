@@ -7,7 +7,7 @@ namespace Polimedica.Interface
         Task<bool>Add(Promocao promocao);
         Task<bool> Update(Promocao promocao);
         Task<bool> Delete(Promocao promocao);
-        //Task<bool> SaveAsync();
+        Task<Promocao> GetByProdutoId(int id);
         Task<IEnumerable<Promocao>> GetAll();
     }
 }

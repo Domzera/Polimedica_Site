@@ -39,5 +39,10 @@ namespace Polimedica.Repository
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<Promocao> GetByProdutoId(int ProdutoID)
+        {
+            return await _context.PromocaoDb.FirstOrDefaultAsync(p => p.ProdutoID == ProdutoID);
+        }
     }
 }

@@ -181,6 +181,20 @@ namespace Polimedica.Controllers
                     await _terEmCasaRepository.Add(terEmCasa); // Salva as alterações no BD para TerEmCasaBd
                 }
 
+                // Cuida da Promoção
+                if (produtoVM.Promocao)
+                {
+                        var promocao = new Promocao
+                        {
+                            ProdutoID = produto.Id,
+                            Preco = (Decimal)produtoVM.Preco,
+                            Datainicio = DateOnly.FromDateTime(DateTime.Now),
+                            DataFinal = DateOnly.FromDateTime(DateTime.Now.AddDays(30)) // Define a data final como 30 dias após a data de início
+                        };
+                        await _promocaoRepository.Add(promocao); // Salva as alterações no BD para PromoçãoBd
+                    
+                }
+
                 // segunda parte: Criação das relações entre Produto e Marca
                 int i = 0;
                 while (i < produtoVM.MarcaId.Length)
@@ -226,28 +240,6 @@ namespace Polimedica.Controllers
                         return View(produtoVM); // Retorna a view com o erro
                     }
                 }
-                // vViewBag da Promoção
-                if (produtoVM.Promocao != null)
-                {
-
-                    var promocao = new Promocao
-                    {
-                        ProdutoID = produto.Id,
-                        Preco = (Decimal)produtoVM.Preco,
-                        Datainicio = DateOnly.FromDateTime(DateTime.Now),
-                        DataFinal = DateOnly.FromDateTime(DateTime.Now.AddDays(30)) // Define a data final como 30 dias após a data de início
-                    };
-                    await _promocaoRepository.Add(promocao);
-                }
-                // ViewBag da TerEmCasa
-                if (produtoVM.TerEmCasa != null)
-                {
-                    var terEmCasa = new TerEmCasa
-                    {
-                        ProdutoId = produto.Id
-                    };
-                    await _terEmCasaRepository.Add(terEmCasa);
-                }
 
                 return RedirectToAction("Index", "Produto");
             }
@@ -284,6 +276,28 @@ namespace Polimedica.Controllers
                     Imagem4 = produto.Imagem4,
                     Imagem5 = produto.Imagem5
                 };
+
+                var terEmCasa = await _terEmCasaRepository.GetById(id);
+                if (terEmCasa == null) {
+                    ProdutoEdit.TerEmCasa = false;
+                }
+                else
+                {
+                    ProdutoEdit.TerEmCasa = true;
+                }
+
+                var promocao = await _promocaoRepository.GetByProdutoId(id);
+                if (promocao == null) { 
+                    ProdutoEdit.Promocao = false;
+                }
+                else
+                {
+                    ProdutoEdit.Promocao = true;
+                    ProdutoEdit.PrecoPromocional = (float)promocao.Preco;
+                    ProdutoEdit.DataInicioPromocao = promocao.Datainicio;
+                    ProdutoEdit.DataFinalPromocao = promocao.DataFinal;
+                }
+
 
                 //Segunda parte - Carrega as marcas selecionadas para o produto
                 List<EditProdutMarcaViewModel> marcaL = new List<EditProdutMarcaViewModel>(); //Cria a lista de marcas
@@ -384,6 +398,7 @@ namespace Polimedica.Controllers
                 produto.DescricaoProduto = produtoVM.DescricaoProduto;
                 produto.Preco = (Decimal)produtoVM.Preco;
                 produto.Ativo = produtoVM.Ativo ? true : false;
+
                 // Terceira Parte =>Atualiza as imagens se novas forem enviadas
                 if (produtoVM.IImagem1 != null)
                 {
@@ -409,6 +424,53 @@ namespace Polimedica.Controllers
                 {
                     await DeletePhoto(produto.Imagem5);
                     produto.Imagem5 = SalvaPhoto(produtoVM.IImagem5);
+                }
+
+                //Cuida da categira especial - Ter em casa
+                if (produtoVM.TerEmCasa)
+                {
+                    var terEmCasa = await _terEmCasaRepository.GetById(id);
+                    if (terEmCasa == null)
+                    {
+                        terEmCasa = new TerEmCasa
+                        {
+                            ProdutoId = produto.Id
+                        };
+                        await _terEmCasaRepository.Add(terEmCasa); // Salva as alterações no BD para TerEmCasaBd
+                    }
+                }
+                else
+                {
+                    var terEmCasa = await _terEmCasaRepository.GetById(id);
+                    if (terEmCasa != null)
+                    {
+                        await _terEmCasaRepository.Delete(terEmCasa); // Deleta o TerEmCasa se não for mais necessário
+                    }
+                }
+
+                // Cuida da Promoção
+                if(produtoVM.Promocao)
+                {
+                    var promocao = await _promocaoRepository.GetByProdutoId(id);
+                    if (promocao == null)
+                    {
+                        promocao = new Promocao
+                        {
+                            ProdutoID = produto.Id,
+                            Preco = (Decimal)produtoVM.Preco,
+                            Datainicio = DateOnly.FromDateTime(DateTime.Now),
+                            DataFinal = DateOnly.FromDateTime(DateTime.Now.AddDays(30)) // Define a data final como 30 dias após a data de início
+                        };
+                        await _promocaoRepository.Add(promocao); // Salva as alterações no BD para PromoçãoBd
+                    }
+                }
+                else
+                {
+                    var promocao = await _promocaoRepository.GetByProdutoId(id);
+                    if (promocao != null)
+                    {
+                        await _promocaoRepository.Delete(promocao); // Deleta a promoção se não for mais necessária
+                    }
                 }
 
                 var marcaProduto = await _marcaProdutoRepository.getByProdutoId(id); // Busca todas as marcas associadas ao produto

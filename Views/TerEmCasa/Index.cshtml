@@ -1,6 +1,8 @@
-﻿@model IEnumerable<Produto>
+﻿@using Polimedica.ViewModel
+@model IEnumerable<TerEmCasaViewModel>
 
-<title>@ViewData["Title"] - Lista de Produtos</title>
+<title>@ViewData["Title"] - Lista de Produtos para ter em casa.</title>
+
 
 <head>
     <!-- Outros metadados -->
@@ -23,15 +25,16 @@
     </style>
 </head>
 
+
 <main>
     <section>
         <div class="container-md text-center">
             <!-- Carrousel da pagina inicial -->
             <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner" >
+                <div class="carousel-inner">
                     <div class="carousel-item active imagem-container">
                         <!-- Imangem 01-->
-                        @if(ViewBag.banner1 != "null")
+                        @if (ViewBag.banner1 != "null")
                         {
                             <img src="@ViewBag.banner1" class="imagem-ajustada" alt="Banner promocional 1">
                         }
@@ -42,7 +45,7 @@
                     </div>
                     <div class="carousel-item imagem-container">
                         <!-- Imangem 02-->
-                        @if(ViewBag.banner2 != "null")
+                        @if (ViewBag.banner2 != "null")
                         {
                             <img src="@ViewBag.banner2" class="imagem-ajustada" alt="Banner promocional 2">
                         }
@@ -53,7 +56,7 @@
                     </div>
                     <div class="carousel-item imagem-container">
                         <!-- Imangem 03-->
-                        @if(ViewBag.banner3 != "null")
+                        @if (ViewBag.banner3 != "null")
                         {
                             <img src="@ViewBag.banner3" class="imagem-ajustada" alt="Banner promocional 3">
                         }
@@ -74,26 +77,26 @@
             </div>
         </div>
     </section>
-    <section>
-        <section class="py-2 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Produtos</h1>
-                    <p class="lead text-muted">Seu bem estar é nosso melhor negócio!</p>
+    <section class="py-2 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Para ter em Casa</h1>
+                <p class="lead text-muted">Bem estar e conforto.</p>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <section>
         <div class="album py-2" style="background-color: transparent;">
             <div class="container" style="background-color: transparent;">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    @if(Model != null)
+                    @if (Model != null)
                     {
                         @foreach (var item in Model)
                         {
                             @if (item.Ativo == true)
                             {
-                                <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.Id"
+                                <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.ProdutoId"
                                    class="d-flex justify-content-center p-2"
                                    style="background-color: transparent; border: none; text-decoration: none;">
 
@@ -128,7 +131,7 @@
 
                                 @if (item.Ativo == false)
                                 {
-                                    <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.Id"
+                                    <a asp-controller="Produto" asp-action="Detalhe" asp-route-id="@item.ProdutoId"
                                        class="d-flex justify-content-center p-2"
                                        style="background-color: transparent; border: none; text-decoration: none;">
 

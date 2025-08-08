@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Polimedica.Data;
 using Polimedica.Interface;
 using Polimedica.Models;
@@ -29,6 +30,12 @@ namespace Polimedica.Repository
         public async Task<IEnumerable<TerEmCasa>> GetAll()
         {
             return await _context.TerEmCasaDb.ToListAsync();
+        }
+
+        public async Task<TerEmCasa> GetById(int id)
+        {
+            var terEmCasa = await _context.TerEmCasaDb.FirstOrDefaultAsync(t => t.ProdutoId == id);
+            return terEmCasa != null ? terEmCasa : null;
         }
 
         public Task<bool> Update(TerEmCasa terEmCasa)
