@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\admin\\desktop\\polim\u00E9dica\\views\\produto\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\produto\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\admin\\desktop\\polim\u00E9dica\\views\\categoria\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\categoria\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\admin\\desktop\\polim\u00E9dica\\views\\teremcasa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\teremcasa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\admin\\desktop\\polim\u00E9dica\\views\\promocao\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:views\\promocao\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|c:\\users\\admin\\desktop\\polim\u00E9dica\\controllers\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B914E36-CEF7-4839-A332-960C4254A9B4}|Polimedica.csproj|solutionrelative:controllers\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,8 +22,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 749,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Categoria\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Categoria\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Categoria\\Index.cshtml",
+              "RelativeToolTip": "Views\\Categoria\\Index.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFMAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-08T19:28:03.741Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -32,35 +73,22 @@
               "RelativeDocumentMoniker": "Views\\TerEmCasa\\Index.cshtml",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\TerEmCasa\\Index.cshtml",
               "RelativeToolTip": "Views\\TerEmCasa\\Index.cshtml",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAADYAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAE0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-08T13:26:48.234Z",
+              "WhenOpened": "2025-08-08T19:26:54.629Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Promocao\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Promocao\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Promocao\\Index.cshtml",
-              "RelativeToolTip": "Views\\Promocao\\Index.cshtml",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAADQAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-08T13:24:29.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Produto\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Produto\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Views\\Produto\\Index.cshtml",
-              "RelativeToolTip": "Views\\Produto\\Index.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAADMAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-08T13:24:08.376Z",
+              "Title": "CategoriaController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Controllers\\CategoriaController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoriaController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\Polim\u00E9dica\\Controllers\\CategoriaController.cs",
+              "RelativeToolTip": "Controllers\\CategoriaController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwB0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T19:25:09.115Z",
               "EditorCaption": ""
             }
           ]

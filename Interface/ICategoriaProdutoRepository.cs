@@ -11,5 +11,6 @@ namespace Polimedica.Interface
         Task<bool> DeleteByProdutoId(int id);
         Task<IEnumerable<CategoriaProduto>> GetByCategoriaId(int id);
         Task<IEnumerable<CategoriaProduto>> GetByProdutoId(int id);
+        Task<IEnumerable<CategoriaProduto>> GetProdutoByCategoria(int id);
     }
 }
