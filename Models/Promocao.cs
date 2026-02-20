@@ -6,7 +6,7 @@ namespace Polimedica.Models
     {
         public int Id { get; set; }
         public int ProdutoID { get; set; }
-        public decimal Preco { get; set; }
+        public decimal? Preco { get; set; }
         public DateOnly Datainicio { get; set; }
         public DateOnly DataFinal { get; set; }
     }

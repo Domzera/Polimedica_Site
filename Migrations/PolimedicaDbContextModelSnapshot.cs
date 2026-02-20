@@ -509,7 +509,7 @@ namespace Polimedica.Migrations
                     b.Property<DateOnly>("Datainicio")
                         .HasColumnType("date");
 
-                    b.Property<decimal>("Preco")
+                    b.Property<decimal?>("Preco")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 

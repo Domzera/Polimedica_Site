@@ -5,6 +5,9 @@ using Polimedica.Data;
 using Polimedica.Models;
 using Polimedica.ViewModel;
 
+//usuaior/registroUsuario
+//usuaior/login
+
 namespace Polimedica.Controllers
 {
     public class UsuarioController : Controller
@@ -129,8 +132,8 @@ namespace Polimedica.Controllers
                 }
             }
             return View(userRegister);
-
         }
+
         [Authorize]
         public IActionResult Dashboard()//   ==> Dashboard
         {

@@ -21,7 +21,7 @@ builder.Services.AddScoped<IPhotoService, PhotoServie>();
 builder.Services.AddScoped<IBannerRepository, BannerRepository>();
 builder.Services.AddScoped<IPromocaoRepository, PromocaoRepository>();
 builder.Services.AddScoped<ITerEmCasaRepository, TerEmCasaRepository>();
-builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings")); 
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<PolimedicaDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -30,15 +30,15 @@ builder.Services.AddIdentity<Usuario, IdentityRole>()
     .AddEntityFrameworkStores<PolimedicaDbContext>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
-builder.Services.AddAuthentication()
-    .AddCookie(options =>
-    {
-        options.Cookie.Name = "PolimedicaCookie";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-        options.SlidingExpiration = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.HttpOnly = false;
-    });
+builder.Services.AddAuthentication();
+    //.AddCookie(options =>
+    //{
+    //    options.Cookie.Name = "PolimedicaCookie";
+    //    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    //    options.SlidingExpiration = true;
+    //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    //    options.Cookie.HttpOnly = false;
+    //});
 
 var app = builder.Build();
 
